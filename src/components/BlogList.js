@@ -2,16 +2,15 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Blog from './Blog'
+import AddBlog from '../containers/AddBlog'
 import isEmpty from 'lodash/isEmpty'
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
 } from 'react-native';
 
 type Props = {
-  onAddBlogPress: Function,
   onBlogPress: Function,
   blogs: Array<any>
 };
@@ -27,11 +26,7 @@ export default ({ onAddBlogPress, onBlogPress, blogs }: Props) => (
         />
       )}
     </View>
-    <TouchableOpacity onPress={()=>onAddBlogPress()} style={styles.itemNew}>
-      <View>
-        <Text style={{color:'#8C07EB'}}>Add new blog</Text>
-      </View>
-    </TouchableOpacity>
+    <AddBlog></AddBlog>
   </View>
 )
 
@@ -40,12 +35,4 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1
   },
-  itemNew: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#eee'
-  }
 });

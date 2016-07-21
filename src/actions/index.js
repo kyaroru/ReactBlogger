@@ -1,6 +1,6 @@
 // @flow
-let nextBlogId = 0
-export const addBlog = (blog:any) => {
+let nextBlogId = 3
+export const addBlog = (blog:Object) => {
   return {
     type: 'ADD_BLOG',
     blogId: nextBlogId++,
