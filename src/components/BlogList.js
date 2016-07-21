@@ -1,7 +1,6 @@
 // @flow
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { addBlog, removeBlog } from '../actions'
 import Blog from './Blog'
 import isEmpty from 'lodash/isEmpty'
 import {
@@ -9,11 +8,11 @@ import {
 } from 'react-native';
 
 type Props = {
-  onBlogPress: any,
+  onBlogPress: Function,
   blogs: Array<any>
 };
 
-const BlogList = ({ onBlogPress, blogs }: Props) => (
+export default ({ onBlogPress, blogs }: Props) => (
   <View>
     {blogs.map(blog =>
       <Blog
@@ -24,20 +23,3 @@ const BlogList = ({ onBlogPress, blogs }: Props) => (
     )}
   </View>
 )
-
-const mapStateToProps = (store) => {
-  return {
-    blogs: store.blogState
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onBlogPress: (id) => {
-      dispatch(removeBlog(id))
-    }
-  }
-}
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(BlogList)
