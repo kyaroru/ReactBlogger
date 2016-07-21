@@ -1,3 +1,15 @@
+const blogArray:any = [
+  {
+    blogId: 1,
+    title: 'Carol Blog',
+    url: 'http://blog.kyaroru.com/'
+  },
+  {
+    blogId: 2,
+    title: 'AngularJs',
+    url: 'http://angularjs.blogspot.my/'
+  }
+];
 
 const blog = (item, action) => {
   switch (action.type) {
@@ -12,19 +24,6 @@ const blog = (item, action) => {
   }
 }
 
-const blogArray:any = [
-  {
-    blogId: 1,
-    title: 'Carol Blog',
-    url: 'http://blog.kyaroru.com/'
-  },
-  {
-    blogId: 2,
-    title: 'AngularJs',
-    url: 'http://angularjs.blogspot.my/'
-  }
-];
-
 const blogs = (blogList : any = blogArray, action : any) => {
   switch (action.type) {
     case 'ADD_BLOG':
@@ -38,7 +37,6 @@ const blogs = (blogList : any = blogArray, action : any) => {
         ...blogList.slice(0, index),
         ...blogList.slice(index + 1)
       ]
-      // blogList.filter((item) => { return item.name !== n })
     default:
       return blogList
   }

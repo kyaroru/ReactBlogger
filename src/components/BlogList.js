@@ -25,9 +25,9 @@ const BlogList = ({ onBlogPress, blogs }: Props) => (
   </View>
 )
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (store) => {
   return {
-    blogs: state.blogs
+    blogs: store.blogState
   }
 }
 
