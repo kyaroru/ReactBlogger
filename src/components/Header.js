@@ -20,7 +20,6 @@ export default ({ title }: props) => (
   </View>
 )
 
-
 const styles = StyleSheet.create({
   bar: {
     height: 88,

@@ -43,6 +43,14 @@ const submitAddBlog = (url: string, dispatch) => {
   dispatch(addBlog(blog))
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddBlogPress: ()=> {
+      addNewBlog(dispatch);
+    }
+  }
+}
+
 const styles = StyleSheet.create({
   itemNew: {
     flexDirection: 'column',
@@ -53,13 +61,5 @@ const styles = StyleSheet.create({
     borderColor: '#eee'
   }
 });
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onAddBlogPress: ()=> {
-      addNewBlog(dispatch);
-    }
-  }
-}
 
 export default connect(null,mapDispatchToProps)(AddBlog)

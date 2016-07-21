@@ -6,7 +6,6 @@ import AddBlog from '../containers/AddBlog'
 import isEmpty from 'lodash/isEmpty'
 import {
   View,
-  Text,
   StyleSheet,
 } from 'react-native';
 
@@ -15,7 +14,7 @@ type Props = {
   blogs: Array<any>
 };
 
-export default ({ onAddBlogPress, onBlogPress, blogs }: Props) => (
+export default ({ onBlogPress, blogs }: Props) => (
   <View style={styles.wrapper}>
     <View>
       {blogs.map(blog =>
