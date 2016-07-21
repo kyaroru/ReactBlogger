@@ -1,22 +1,43 @@
 // @flow
-import React, {PropTypes} from 'react'
+import React, {Component} from 'react'
+import { connect } from 'react-redux'
+import { addBlog, removeBlog } from '../actions'
 import Blog from './Blog'
+import isEmpty from 'lodash/isEmpty'
+import {
+  View,
+} from 'react-native';
 
-type props = {
-  onBlogClick: Function,
+type Props = {
+  onBlogPress: any,
   blogs: Array<any>
 };
 
-export default ({ blogs, onBlogClick }: props) => (
-  <ul>
+const BlogList = ({ onBlogPress, blogs }: Props) => (
+  <View>
     {blogs.map(blog =>
       <Blog
-        blogId={blog.blogId}
-        title={blog.title}
-        url={blog.url}
+        key={blog.blogId}
         {...blog}
-        onClick={() => onBlogClick(blog.blogId)}
+        onPress={()=>onBlogPress(blog.blogId)}
       />
     )}
-  </ul>
+  </View>
 )
+
+const mapStateToProps = (state) => {
+  return {
+    blogs: state.blogs
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onBlogPress: (id) => {
+      dispatch(removeBlog(id))
+    }
+  }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(BlogList)

@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 import Header from './components/Header';
-import BlogListContainer from './containers/BlogListContainer';
+import BlogList from './components/BlogList';
 
 const store = createStore(reducers)
 
@@ -18,7 +18,7 @@ export default () => (
     <View style={styles.container}>
       <Header title="Blog List"></Header>
       <View style={styles.content}>
-        <BlogListContainer></BlogListContainer>
+        <BlogList></BlogList>
       </View>
     </View>
   </Provider>

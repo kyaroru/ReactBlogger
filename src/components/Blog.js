@@ -1,32 +1,26 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 import {
   View,
   StyleSheet,
   Text,
+  TouchableHighlight
 } from 'react-native';
 
 type props = {
-  onClick: Function,
-  favourite: bool,
+  onPress: any,
   url: string,
   title: string,
 };
 
-export default ({ onClick, favourite, title, url }: props) => (
-  <li
-    onClick={onClick}
-    style={{
-      color: favourite ? 'red' : 'black'
-    }}
-  >
+export default ({ onPress, url, title }:props) => (
+  <TouchableHighlight onPress={onPress}>
     <View style={styles.item}>
       <Text>{title}</Text>
       <Text>{url}</Text>
     </View>
-  </li>
+  </TouchableHighlight>
 )
-
 
 const styles = StyleSheet.create({
   item: {
