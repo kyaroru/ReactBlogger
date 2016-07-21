@@ -8,7 +8,47 @@ const blogArray:any = [
     blogId: 2,
     title: 'AngularJs',
     url: 'http://angularjs.blogspot.my/'
-  }
+  },
+  {
+    blogId: 3,
+    title: 'AngularJs',
+    url: 'http://angularjs.blogspot.my/'
+  },
+  // {
+  //   blogId: 4,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // },
+  // {
+  //   blogId: 5,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // },
+  // {
+  //   blogId: 6,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // },
+  // {
+  //   blogId: 7,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // },
+  // {
+  //   blogId: 8,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // },
+  // {
+  //   blogId: 9,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // },
+  // {
+  //   blogId: 10,
+  //   title: 'AngularJs',
+  //   url: 'http://angularjs.blogspot.my/'
+  // }
 ];
 
 const blog = (item, action) => {

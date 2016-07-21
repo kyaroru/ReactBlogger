@@ -4,6 +4,7 @@ import {
   View,
   StyleSheet,
   Text,
+  ScrollView
 } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -17,9 +18,11 @@ export default () => (
   <Provider store={store}>
     <View style={styles.container}>
       <Header title="Blog List"></Header>
-      <View style={styles.content}>
-        <BlogListContainer></BlogListContainer>
-      </View>
+      <ScrollView styles={styles.scrollView}>
+        <View style={styles.content}>
+          <BlogListContainer></BlogListContainer>
+        </View>
+      </ScrollView>
     </View>
   </Provider>
 );
@@ -32,8 +35,8 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 10,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-start'
   }
 });

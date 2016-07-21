@@ -4,7 +4,7 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableHighlight
+  TouchableOpacity
 } from 'react-native';
 
 type props = {
@@ -14,20 +14,22 @@ type props = {
 };
 
 export default ({ onPress, url, title }:props) => (
-  <TouchableHighlight onPress={onPress}>
-    <View style={styles.item}>
+  <TouchableOpacity onPress={onPress} style={styles.item}>
+    <View>
       <Text>{title}</Text>
       <Text>{url}</Text>
     </View>
-  </TouchableHighlight>
+  </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
+    alignItems: 'flex-start',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#eee',
   },
   title: {
     fontSize: 12
