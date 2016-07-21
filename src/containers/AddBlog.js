@@ -1,7 +1,8 @@
 // @flow
 import React from 'react'
 import { connect } from 'react-redux'
-import { addBlog } from '../actions'
+import { addBlog, fetchBlogInfo } from '../actions'
+import config from '../config'
 import {
   TouchableOpacity,
   AlertIOS,
@@ -11,6 +12,7 @@ import {
 } from 'react-native'
 
 type Props = {
+  fetchBlogInfo: Function,
   onAddBlogPress: Function,
 };
 
@@ -36,17 +38,22 @@ const addNewBlog = (dispatch) => {
 }
 
 const submitAddBlog = (url: string, dispatch) => {
+  fetchBlogInfo(url);
   let blog = {
     url: url,
     title: 'New Blog'
   }
   dispatch(addBlog(blog))
+
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddBlogPress: ()=> {
       addNewBlog(dispatch);
+    },
+    fetchBlogInfo: (url)=> {
+      dispatch(fetchBlogInfo(url))
     }
   }
 }

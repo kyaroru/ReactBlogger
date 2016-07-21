@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+// import createStore from './createStore';
 import reducers from './reducers';
 import Header from './components/Header';
 import BlogListContainer from './containers/BlogListContainer'
