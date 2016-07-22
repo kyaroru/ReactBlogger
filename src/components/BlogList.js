@@ -2,41 +2,53 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Blog from './Blog'
-// import AddBlog from '../containers/AddBlog'
+import BlogHeader from '../containers/BlogHeader'
 import isEmpty from 'lodash/isEmpty'
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
-  Text
+  ScrollView
 } from 'react-native';
 
 type Props = {
-  onAddBlogPress: Function,
   onBlogPress: Function,
   blogs: Array<any>
 };
 
-export default ({ onAddBlogPress, onBlogPress, blogs }: Props) => (
-  <View style={styles.wrapper}>
-    <View>
-      {blogs.map(blog =>
-        <Blog
-          key={blog.blogId}
-          {...blog}
-          onPress={()=>onBlogPress(blog.blogId)}
-        />
-      )}
-    </View>
-    <TouchableOpacity onPress={()=>onAddBlogPress()} style={styles.itemNew}>
-      <View>
-        <Text style={{color:'#8C07EB'}}>Add new blog</Text>
+export default ({ onBlogPress, blogs }: Props) => (
+  <View style={styles.container}>
+    <BlogHeader title="Blogs" iconName="plus"></BlogHeader>
+    <ScrollView>
+      <View style={styles.content}>
+        <View style={styles.wrapper}>
+          <View>
+            {blogs.map(blog =>
+              <Blog
+                key={blog.blogId}
+                {...blog}
+                onPress={()=>onBlogPress(blog.blogId)}
+              />
+            )}
+          </View>
+        </View>
       </View>
-    </TouchableOpacity>
+    </ScrollView>
   </View>
 )
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: '#fff',
+    justifyContent: 'flex-start'
+  },
+  content: {
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
   wrapper: {
     flexDirection: 'column',
     flex: 1
