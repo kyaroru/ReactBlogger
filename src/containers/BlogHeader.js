@@ -19,18 +19,32 @@ const addNewBlog = (dispatch) => {
 }
 
 const submitAddBlog = (url: string, dispatch) => {
-  fetchBlogInfo(url);
-  let blog = {
-    url: url,
-    title: 'New Blog'
-  }
-  dispatch(addBlog(blog))
+  let processUrl = url.replace('https://', '');
+  processUrl = processUrl.replace('http://', '');
+  processUrl = replaceAll(processUrl,'/', '');
+  let regenUrl = 'http://'+processUrl+'/';
 
+  dispatch(fetchBlogInfo(regenUrl));
+}
+
+const checkStatus = () => {
+  // let blog = this.props.blog;
+  // if(blog) {
+  //   console.log(blog);
+  //   let newBlog = {
+  //     url: regenUrl,
+  //     title: blog.name
+  //   }
+  //   dispatch(addBlog(newBlog))
+  // }
+}
+
+const replaceAll = (str,search, replacement) => {
+    return str.replace(new RegExp(search, 'g'), replacement);
 }
 
 const mapStateToProps = (store) => {
   return {
-    blogs: store.blogState.blogs,
     isFetching: store.blogState.blogInfo.isFetching,
     blog: store.blogState.blogInfo.blog
   };
@@ -40,9 +54,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onIconPress: ()=> {
       addNewBlog(dispatch);
-    },
-    fetchBlogInfo: (url)=> {
-      dispatch(fetchBlogInfo(url))
     }
   }
 }
