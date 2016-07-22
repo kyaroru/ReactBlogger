@@ -52,13 +52,5 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'column',
     flex: 1
-  },
-  itemNew: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#eee'
   }
 });
