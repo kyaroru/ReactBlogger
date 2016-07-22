@@ -7,13 +7,11 @@ import {
   ScrollView
 } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-// import createStore from './createStore';
-import reducers from './reducers';
+import createStore from './createStore';
 import Header from './components/Header';
 import BlogListContainer from './containers/BlogListContainer'
 
-const store = createStore(reducers)
+const store = createStore()
 
 export default () => (
   <Provider store={store}>
