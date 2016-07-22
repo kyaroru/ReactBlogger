@@ -6,7 +6,8 @@ import { removeBlog } from '../actions'
 
 const mapStateToProps = (store) => {
   return {
-    blogs: store.blogState.blogs
+    blogs: store.blogState.blogs,
+    isFetching: store.blogState.blogInfo.isFetching,
   };
 }
 

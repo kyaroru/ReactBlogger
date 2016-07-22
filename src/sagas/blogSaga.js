@@ -7,7 +7,13 @@ import * as api from '../api';
 function* fetchBlogInfo( blogAction ) {
   try {
     const blog = yield call(api.fetchBlogInfo, blogAction.url);
-    yield put({ type: actions.FETCH_BLOG_INFO_SUCCESS, blog });
+    if(blog.error) {
+      yield put({ type: actions.FETCH_BLOG_INFO_FAIL, message: blog.error.message });
+    }
+    else {
+      yield put({ type: actions.FETCH_BLOG_INFO_SUCCESS, blog });
+      yield put({ type: actions.ADD_BLOG, blog });
+    }
   } catch (e) {
     yield put({ type: actions.FETCH_BLOG_INFO_FAIL, message: e.message });
   }

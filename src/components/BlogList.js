@@ -7,26 +7,34 @@ import isEmpty from 'lodash/isEmpty'
 import {
   View,
   StyleSheet,
-  ScrollView
+  ScrollView,
+  Text,
+  ActivityIndicator
 } from 'react-native';
 
 type Props = {
   onBlogPress: Function,
-  blogs: Array<any>
+  blogs: Array<any>,
+  isFetching: bool,
 };
 
-export default ({ onBlogPress, blogs }: Props) => (
+export default ({ onBlogPress, blogs, isFetching }: Props) => (
   <View style={styles.container}>
     <BlogHeader title="Blogs" iconName="plus"></BlogHeader>
+    <ActivityIndicator
+      animating={!!isFetching}
+      style={styles.centering}
+      size="large"
+    />
     <ScrollView>
       <View style={styles.content}>
         <View style={styles.wrapper}>
           <View>
             {blogs.map(blog =>
               <Blog
-                key={blog.blogId}
+                key={blog.id}
                 {...blog}
-                onPress={()=>onBlogPress(blog.blogId)}
+                onPress={()=>onBlogPress(blog.id)}
               />
             )}
           </View>
@@ -52,5 +60,13 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: 'column',
     flex: 1
-  }
+  },
+  centering: {
+    position: 'absolute',
+    top: 64,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+  },
 });

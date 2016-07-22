@@ -3,13 +3,13 @@ import { combineReducers } from 'redux'
 
 const blogArray:any = [
   {
-    blogId: 1,
-    title: 'Carol Blog',
+    id: 1,
+    name: 'Carol Blog',
     url: 'http://blog.kyaroru.com/'
   },
   {
-    blogId: 2,
-    title: 'AngularJs',
+    id: 2,
+    name: 'AngularJs',
     url: 'http://angularjs.blogspot.my/'
   }
 ];
@@ -18,8 +18,8 @@ const blog = (item, action) => {
   switch (action.type) {
     case 'ADD_BLOG':
       return {
-        blogId: action.blogId,
-        title: action.blog.title,
+        id: action.blog.id,
+        name: action.blog.name,
         url: action.blog.url
       }
     default:
@@ -35,7 +35,7 @@ const blogs = (blogList : any = blogArray, action : any) => {
         blog(undefined, action)
       ]
     case 'REMOVE_BLOG':
-      let index = blogList.findIndex((x) => x.blogId === action.blogId);
+      let index = blogList.findIndex((x) => x.id === action.id);
       return [
         ...blogList.slice(0, index),
         ...blogList.slice(index + 1)
