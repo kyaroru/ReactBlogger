@@ -6,8 +6,8 @@ import * as api from '../api';
 
 function* fetchBlogInfo({ url: string }) {
   try {
-    const blogInfo = yield call(api.fetchBlogInfo, url);
-    yield put({ type: actions.FETCH_BLOG_INFO_SUCCESS, url, blogInfo });
+    const blog = yield call(api.fetchBlogInfo, url);
+    yield put({ type: actions.FETCH_BLOG_INFO_SUCCESS, url, blog });
   } catch (e) {
     yield put({ type: actions.FETCH_BLOG_INFO_FAIL, message: e.message });
   }

@@ -1,3 +1,6 @@
+import * as actions from '../actions'
+import { combineReducers } from 'redux'
+
 const blogArray:any = [
   {
     blogId: 1,
@@ -42,4 +45,20 @@ const blogs = (blogList : any = blogArray, action : any) => {
   }
 }
 
-export default blogs
+const blogInfo = (state = {isFetching: false}, action) => {
+  switch (action.type) {
+    case actions.FETCH_BLOG_INFO_REQUEST:
+      return { isFetching: true };
+    case actions.FETCH_BLOG_INFO_SUCCESS:
+      return { isFetching: false, blog: action.blog };
+    case actions.FETCH_BLOG_INFO_FAIL:
+      return { isFetching: false, error: action.message };
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  blogs,
+  blogInfo,
+});

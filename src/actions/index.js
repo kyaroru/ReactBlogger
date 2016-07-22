@@ -26,16 +26,15 @@ export const removeBlog = (blogId:string) => {
 
 export const fetchBlogInfo = (url: string) => ({
   type: FETCH_BLOG_INFO_REQUEST,
-  url,
+  url
 });
 
-export const fetchBlogInfoSuccess = (blogInfo: any, url: string) => ({
+export const fetchBlogInfoSuccess = (blog: any) => ({
   type: FETCH_BLOG_INFO_SUCCESS,
-  blogInfo,
-  url,
+  blog
 });
 
-export const fetchBlogInfoFail = (url: string) => ({
+export const fetchBlogInfoFail = (message: string) => ({
   type: FETCH_BLOG_INFO_FAIL,
-  url,
+  message
 });
