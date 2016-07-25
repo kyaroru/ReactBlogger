@@ -35,14 +35,14 @@ export default ({ title, onIconPress, iconName }: props) => (
 
 const styles = StyleSheet.create({
   bar: {
-    height: 68,
+    height: 64,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9007FF'
   },
   statusBar: {
-    height: 24
+    height: 20
   },
   navBar: {
     flexDirection: 'row',

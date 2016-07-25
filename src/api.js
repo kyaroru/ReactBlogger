@@ -17,3 +17,32 @@ export const fetchBlogInfo = (blogUrl: string) => {
     return response.data;
   })
 };
+
+export const fetchPost = (id: string) => {
+  const url = config.domain + id + '/posts';
+  const params = {
+    key: config.API_KEY,
+  };
+  return axios.get(url,{params:params})
+  .then((response)=>{
+    // console.log(response);
+    return response.data;
+  },(response)=>{
+    return response.data;
+  })
+};
+
+export const fetchOlderPost = (id: string, token: string) => {
+  const url = config.domain + id + '/posts';
+  const params = {
+    pageToken:token,
+    key: config.API_KEY,
+  };
+  return axios.get(url,{params:params})
+  .then((response)=>{
+    // console.log(response);
+    return response.data;
+  },(response)=>{
+    return response.data;
+  })
+};

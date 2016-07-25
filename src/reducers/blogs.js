@@ -3,14 +3,14 @@ import { combineReducers } from 'redux'
 
 const blogArray:any = [
   {
-    id: 1,
-    name: 'Carol Blog',
+    id: '3318750962623420514',
+    name: 'Carol の 点点滴滴',
     url: 'http://blog.kyaroru.com/'
   },
   {
-    id: 2,
-    name: 'AngularJs',
-    url: 'http://angularjs.blogspot.my/'
+    id: '7159470537406093899',
+    name: 'Angular',
+    url: 'http://angularjs.blogspot.com/'
   }
 ];
 

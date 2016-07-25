@@ -7,7 +7,7 @@ import * as api from '../api';
 function* fetchBlogInfo( blogAction ) {
   try {
     const blog = yield call(api.fetchBlogInfo, blogAction.url);
-    if(blog.error) {
+    if(typeof blog.error !== 'undefined') {
       yield put({ type: actions.FETCH_BLOG_INFO_FAIL, message: blog.error.message });
     }
     else {

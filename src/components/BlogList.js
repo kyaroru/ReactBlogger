@@ -20,7 +20,6 @@ type Props = {
 
 export default ({ onBlogPress, blogs, isFetching }: Props) => (
   <View style={styles.container}>
-    <BlogHeader title="Blogs" iconName="plus"></BlogHeader>
     <ActivityIndicator
       animating={!!isFetching}
       style={styles.centering}
@@ -49,7 +48,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    marginTop: 64
   },
   content: {
     padding: 10,
