@@ -9,16 +9,18 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 
 type Props = {
+  onAddBlogPress: Function,
   onBlogPress: Function,
   blogs: Array<any>,
   isFetching: bool,
 };
 
-export default ({ onBlogPress, blogs, isFetching }: Props) => (
+export default ({ onBlogPress, onAddBlogPress, blogs, isFetching }: Props) => (
   <View style={styles.container}>
     <ActivityIndicator
       animating={!!isFetching}
@@ -37,6 +39,11 @@ export default ({ onBlogPress, blogs, isFetching }: Props) => (
               />
             )}
           </View>
+          <TouchableOpacity onPress={()=>onAddBlogPress()} style={styles.itemNew}>
+            <View>
+              <Text style={{color:'#8C07EB'}}>Add new blog</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>
@@ -69,4 +76,12 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 10,
   },
+  itemNew: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#eee',
+  }
 });

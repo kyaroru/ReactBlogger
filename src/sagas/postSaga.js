@@ -6,12 +6,12 @@ import * as api from '../api';
 
 function* fetchPost( postAction ) {
   try {
-    const data = yield call(api.fetchPost, postAction.id);
-    if(typeof data.error !== 'undefined') {
-      yield put({ type: actions.FETCH_POST_FAIL, message: data.error.message });
+    const posts = yield call(api.fetchPost, postAction.id);
+    if(typeof posts.error !== 'undefined') {
+      yield put({ type: actions.FETCH_POST_FAIL, message: posts.error.message });
     }
     else {
-      yield put({ type: actions.FETCH_POST_SUCCESS, data });
+      yield put({ type: actions.FETCH_POST_SUCCESS, posts });
     }
   } catch (e) {
     yield put({ type: actions.FETCH_POST_FAIL, message: e.message });

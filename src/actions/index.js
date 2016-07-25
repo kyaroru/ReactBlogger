@@ -45,9 +45,9 @@ export const fetchPost = (id: string) => ({
   id
 });
 
-export const fetchPostSuccess = (data: any) => ({
+export const fetchPostSuccess = (posts: any) => ({
   type: FETCH_POST_SUCCESS,
-  data
+  posts
 });
 
 export const fetchPostFail = (message: string) => ({

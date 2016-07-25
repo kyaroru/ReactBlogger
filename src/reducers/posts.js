@@ -1,12 +1,12 @@
 import * as actions from '../actions'
 import { combineReducers } from 'redux'
 
-const data = (state = {isFetching: false}, action) => {
+const posts = (state = {isFetching: false}, action) => {
   switch (action.type) {
     case actions.FETCH_POST_REQUEST:
       return { isFetching: true };
     case actions.FETCH_POST_SUCCESS:
-      return { isFetching: false, posts: action.data.items, nextPageToken: action.data.nextPageToken };
+      return { isFetching: false, items: action.posts.items, nextPageToken: action.posts.nextPageToken };
     case actions.FETCH_POST_FAIL:
       return { isFetching: false, error: action.message };
     default:
@@ -15,5 +15,5 @@ const data = (state = {isFetching: false}, action) => {
 }
 
 export default combineReducers({
-  data
+  posts
 });

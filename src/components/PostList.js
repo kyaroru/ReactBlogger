@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 
 type Props = {
-  onPostPress: Function,
+  onDetailPress: Function,
+  onCommentPress: Function,
   posts: Array<any>,
   isFetching: bool,
   nextPageToken: string,
@@ -57,7 +58,7 @@ class PostList extends Component {
   }
 
   renderPosts() {
-    const { onPostPress, posts } = this.props;
+    const { onDetailPress, onCommentPress, posts } = this.props;
     if(isEmpty(posts)){
       return (
         <View>
@@ -69,7 +70,8 @@ class PostList extends Component {
       <Post
         key={post.id}
         {...post}
-        onPress={()=>onPostPress(post.id)}
+        onDetailPress={()=>onDetailPress(post.id)}
+        onCommentPress={()=>onCommentPress(post.id)}
       />
     )
   }

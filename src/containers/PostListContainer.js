@@ -6,9 +6,9 @@ import { fetchPost } from '../actions'
 
 const mapStateToProps = (store) => {
   return {
-    posts: store.postState.data.posts,
-    isFetching: store.postState.data.isFetching,
-    nextPageToken: store.postState.data.nextPageToken,
+    posts: store.postState.posts.items,
+    isFetching: store.postState.posts.isFetching,
+    nextPageToken: store.postState.posts.nextPageToken,
   };
 }
 
@@ -17,9 +17,13 @@ const mapDispatchToProps = (dispatch) => {
     fetchPosts: (id) => {
       dispatch(fetchPost(id))
     },
-    onPostPress: (id) => {
+    onDetailPress: (id) => {
       // Actions.viewPost(id)
       console.log('View post: ' + id)
+    },
+    onCommentPress: (id) => {
+      // Actions.viewComment(id)
+      console.log('View comment for post: ' + id)
     }
   }
 }
