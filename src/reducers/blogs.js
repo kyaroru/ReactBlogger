@@ -58,7 +58,19 @@ const blogInfo = (state = {isFetching: false}, action) => {
   }
 }
 
+const prompt = (state = {isShowPrompt: false, title:'',placeholder:''}, action) => {
+  switch (action.type) {
+    case actions.SHOW_PROMPT:
+      return { isShowPrompt: true, title: action.title, placeholder: action.placeholder };
+    case actions.HIDE_PROMPT:
+      return { isShowPrompt: false, title: '', placeholder: '' };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   blogs,
   blogInfo,
+  prompt,
 });

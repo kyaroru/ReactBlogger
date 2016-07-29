@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Blog from './Blog'
 import BlogHeader from '../containers/BlogHeader'
 import isEmpty from 'lodash/isEmpty'
+import Prompt from 'react-native-prompt'
 import {
   View,
   StyleSheet,
@@ -15,12 +16,18 @@ import {
 
 type Props = {
   onAddBlogPress: Function,
+  onSubmitAddBlog: Function,
   onBlogPress: Function,
+  onCancelPrompt: Function,
   blogs: Array<any>,
   isFetching: bool,
+  isShowPrompt: bool,
+  promptTitle: string,
+  promptPlaceholder: string,
 };
 
-export default ({ onBlogPress, onAddBlogPress, blogs, isFetching }: Props) => (
+export default ({ onBlogPress, onAddBlogPress, blogs, isFetching, promptTitle, promptPlaceholder,
+   isShowPrompt, onSubmitAddBlog, onCancelPrompt }: Props) => (
   <View style={styles.container}>
     <ActivityIndicator
       animating={!!isFetching}
@@ -47,6 +54,15 @@ export default ({ onBlogPress, onAddBlogPress, blogs, isFetching }: Props) => (
         </View>
       </View>
     </ScrollView>
+
+    <Prompt
+      title={promptTitle}
+      placeholder={promptPlaceholder}
+      defaultValue=""
+      visible={ isShowPrompt }
+      onCancel={ () => onCancelPrompt() }
+      onSubmit={ (url) => onSubmitAddBlog(url) }
+    />
   </View>
 )
 
@@ -70,7 +86,7 @@ const styles = StyleSheet.create({
   },
   centering: {
     position: 'absolute',
-    top: 64,
+    top: 0,
     bottom: 0,
     left: 0,
     right: 0,
