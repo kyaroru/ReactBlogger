@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import BlogList from '../components/BlogList';
 import { removeBlog, fetchBlogInfo, showPrompt, hidePrompt } from '../actions'
 import { Actions } from 'react-native-router-flux';
+import I18n from '../config/i18n'
 import {
   AlertIOS,
   Platform
@@ -12,15 +13,15 @@ import {
 const addNewBlog = (dispatch) => {
   if (Platform.OS === 'ios') {
     AlertIOS.prompt(
-      'Enter Blog URL',
-      'Enter your blogger URL to be added to the reading list',
+      I18n.t('blogList.enterBlogURL'),
+      I18n.t('blogList.enterBlogURLInfo'),
       [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: url => submitAddBlog(url,dispatch)},
+        {text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: I18n.t('ok'), onPress: url => submitAddBlog(url,dispatch)},
       ]
     );
   } else {
-    dispatch(showPrompt('Enter Blog URL','angularjs.blogspot.com'));
+    dispatch(showPrompt(I18n.t('blogList.enterBlogURL'),'angularjs.blogspot.com'));
   }
 }
 

@@ -1,13 +1,13 @@
 //@flow
 import axios from 'axios';
-import config from './config'
+import api from './config/bloggerAPI'
 
 export const fetchBlogInfo = (blogUrl: string) => {
-  const url = config.domain + 'byurl';
+  const url = api.domain + 'byurl';
   const params = {
     url: blogUrl,
     view: 'READER',
-    key: config.API_KEY,
+    key: api.API_KEY,
   };
   return axios.get(url,{params:params})
   .then((response)=>{
@@ -19,9 +19,9 @@ export const fetchBlogInfo = (blogUrl: string) => {
 };
 
 export const fetchPost = (id: string) => {
-  const url = config.domain + id + '/posts';
+  const url = api.domain + id + '/posts';
   const params = {
-    key: config.API_KEY,
+    key: api.API_KEY,
   };
   return axios.get(url,{params:params})
   .then((response)=>{
@@ -33,10 +33,10 @@ export const fetchPost = (id: string) => {
 };
 
 export const fetchOlderPost = (id: string, token: string) => {
-  const url = config.domain + id + '/posts';
+  const url = api.domain + id + '/posts';
   const params = {
     pageToken:token,
-    key: config.API_KEY,
+    key: api.API_KEY,
   };
   return axios.get(url,{params:params})
   .then((response)=>{

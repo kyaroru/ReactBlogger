@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/EvilIcons';
 import HTMLView from 'react-native-htmlview';
+import I18n from '../config/i18n'
 import {
   View,
   StyleSheet,
@@ -36,7 +37,7 @@ class Post extends Component {
         <TouchableOpacity onPress={onDetailPress} style={styles.contentViewWrapper}>
           <View style={styles.titleView}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subTitle}>{published}</Text>
+            <Text style={styles.subTitle}>{I18n.l("time.formats.short", published)}</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.contentViewWrapper}>
@@ -47,12 +48,12 @@ class Post extends Component {
         <View style={styles.optionButtonWrapper}>
           <TouchableOpacity onPress={onDetailPress} style={styles.optionButton}>
             <Icon name="search" size={20} color="#9007FF"/>
-            <Text style={styles.optionButtonText}>  Details</Text>
+            <Text style={styles.optionButtonText}>  {I18n.t('postList.readMore')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={onCommentPress} style={styles.optionButton}>
             <Icon name="comment" size={20} color="#9007FF"/>
-            <Text style={styles.optionButtonText}>  Comments</Text>
+            <Text style={styles.optionButtonText}>  {I18n.t('postList.comments')}</Text>
           </TouchableOpacity>
         </View>
       </View>

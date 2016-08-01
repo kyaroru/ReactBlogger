@@ -1,6 +1,7 @@
 package com.reactblogger;
 
 import com.facebook.react.ReactActivity;
+import com.i18n.reactnativei18n.ReactNativeI18n;
 import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainActivity extends ReactActivity {

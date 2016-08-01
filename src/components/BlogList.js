@@ -2,9 +2,9 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import Blog from './Blog'
-import BlogHeader from '../containers/BlogHeader'
 import isEmpty from 'lodash/isEmpty'
 import Prompt from 'react-native-prompt'
+import I18n from '../config/i18n'
 import {
   View,
   StyleSheet,
@@ -48,7 +48,7 @@ export default ({ onBlogPress, onAddBlogPress, blogs, isFetching, promptTitle, p
           </View>
           <TouchableOpacity onPress={()=>onAddBlogPress()} style={styles.itemNew}>
             <View>
-              <Text style={{color:'#8C07EB'}}>Add new blog</Text>
+              <Text style={{color:'#8C07EB'}}>{I18n.t('blogList.addNewBlog')}</Text>
             </View>
           </TouchableOpacity>
         </View>

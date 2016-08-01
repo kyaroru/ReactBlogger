@@ -6,19 +6,39 @@ import { Router, Scene } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
 import BlogListContainer from './containers/BlogListContainer'
 import PostListContainer from './containers/PostListContainer'
+import I18n from './config/i18n'
 
 const store = createStore()
+
+const scenes = [
+  {
+    key: 'blogList',
+    component: BlogListContainer,
+    title: I18n.t('blogList.title'),
+    initial: true
+  },
+  {
+    key: 'postList',
+    component: PostListContainer,
+    title: I18n.t('postList.title'),
+    initial: false
+  }
+];
 
 export default () => (
   <Provider store={store}>
     <Router navigationBarStyle={styles.barStyle} titleStyle={styles.titleStyle} barButtonIconStyle={styles.barButtonIconStyle}>
        <Scene key="root">
-         <Scene key="blogList" component={BlogListContainer} title="Blog List" initial={true} />
-         <Scene key="postList" component={PostListContainer} title="Post List" />
+          {scenes.map(scene =>
+            <Scene key={scene.key} component={scene.component} title={scene.title} initial={scene.initail} />
+          )}
        </Scene>
      </Router>
   </Provider>
 );
+
+// <Scene key="blogList" component={BlogListContainer} title="Blog List" initial={true} />
+// <Scene key="postList" component={PostListContainer} title="Post List" />
 
 const styles = {
   barStyle: {
