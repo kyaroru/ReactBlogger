@@ -8,6 +8,8 @@ import BlogListContainer from './containers/BlogListContainer'
 import PostListContainer from './containers/PostListContainer'
 import I18n from './config/i18n'
 
+// I18n.locale = 'zh';
+
 const store = createStore()
 
 const scenes = [
@@ -36,9 +38,6 @@ export default () => (
      </Router>
   </Provider>
 );
-
-// <Scene key="blogList" component={BlogListContainer} title="Blog List" initial={true} />
-// <Scene key="postList" component={PostListContainer} title="Post List" />
 
 const styles = {
   barStyle: {
