@@ -10,6 +10,12 @@ const zh = {
     readMore: '阅读更多',
     comments: '留言'
   },
+  postDetail: {
+    title: '文章详情'
+  },
+  viewComment: {
+    title: '留言'
+  },
   ok: '确认',
   cancel: '取消'
 };

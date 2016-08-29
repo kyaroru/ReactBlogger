@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PostList from '../components/PostList';
 import { fetchPost } from '../actions'
+import { Actions } from 'react-native-router-flux';
 
 const mapStateToProps = (store) => {
   return {
@@ -17,13 +18,22 @@ const mapDispatchToProps = (dispatch) => {
     fetchPosts: (id) => {
       dispatch(fetchPost(id))
     },
-    onDetailPress: (id) => {
-      // Actions.viewPost(id)
-      console.log('View post: ' + id)
+    onDetailPress: (post) => {
+      // console.log('View post: ' + post.id);
+      const data = {
+        selectedPost: post
+      };
+      Actions.postDetail(data);
     },
-    onCommentPress: (id) => {
-      // Actions.viewComment(id)
-      console.log('View comment for post: ' + id)
+    onCommentPress: (post) => {
+      if(post.replies.totalItems!=="0") {
+        // console.log(post);
+        const data = {
+          postId: post.id,
+          blogId: post.blog.id,
+        };
+        Actions.viewComment(data);
+      }
     }
   }
 }

@@ -1,27 +1,27 @@
 // @flow
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import Post from './Post'
-import isEmpty from 'lodash/isEmpty'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Comment from '../components/Comment';
+import { fetchComment } from '../actions'
+import isEmpty from 'lodash/isEmpty';
+
 import {
   View,
   StyleSheet,
   ScrollView,
+  ActivityIndicator,
   Text,
-  ActivityIndicator
 } from 'react-native';
 
 type Props = {
-  onDetailPress: Function,
-  onCommentPress: Function,
-  posts: Array<any>,
+  blogId: string,
+  postId: string,
+  fetchComments: Function,
+  comments: Array<any>,
   isFetching: bool,
-  nextPageToken: string,
-  fetchPosts: Function,
-  blogId: string
 };
 
-class PostList extends Component {
+class CommentContainer extends Component {
   props: Props;
 
   constructor(props: Props) {
@@ -29,7 +29,7 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPosts(this.props.blogId);
+    this.props.fetchComments(this.props.blogId, this.props.postId);
   }
 
   render() {
@@ -46,32 +46,28 @@ class PostList extends Component {
           <View style={styles.content}>
             <View style={styles.wrapper}>
               <View>
-                {!isFetching && this.renderPosts()}
+                {!isFetching && this.renderComments()}
               </View>
             </View>
           </View>
         </ScrollView>
       </View>
     )
-
   }
 
-  renderPosts() {
-    const { onDetailPress, onCommentPress, posts } = this.props;
-    if(isEmpty(posts)){
+  renderComments() {
+    const { comments } = this.props;
+    if(isEmpty(comments)){
       return (
         <View>
           <Text> </Text>
         </View>
       )
     }
-    return posts.map(post =>
-      <Post
-        key={post.id}
-        {...post}
-        numberOfLines={5}
-        onDetailPress={()=>onDetailPress(post)}
-        onCommentPress={()=>onCommentPress(post)}
+    return comments.map(comment =>
+      <Comment
+        key={comment.id}
+        {...comment}
       />
     )
   }
@@ -105,4 +101,19 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostList
+const mapStateToProps = (store) => {
+  return {
+    comments: store.postState.comments.items,
+    isFetching: store.postState.comments.isFetching,
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchComments: (blogId, postId) => {
+      dispatch(fetchComment(blogId, postId))
+    },
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CommentContainer)

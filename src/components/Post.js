@@ -15,7 +15,7 @@ type Props = {
   onCommentPress: Function,
   content: string,
   title: string,
-  published: string
+  published: string,
 };
 
 class Post extends Component {
@@ -30,22 +30,22 @@ class Post extends Component {
   }
 
   render() {
-    const { onDetailPress, onCommentPress, content, title, published } = this.props;
+    const { onDetailPress, onCommentPress, content, title, published, numberOfLines, replies } = this.props;
     const contentWithoutHTML = this.formatContent(content);
     return (
       <View style={styles.item}>
         <TouchableOpacity onPress={onDetailPress} style={styles.contentViewWrapper}>
           <View style={styles.titleView}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subTitle}>{I18n.l("time.formats.short", published)}</Text>
+            <Text style={styles.subTitle}>{I18n.strftime(new Date(published), '%d %b %Y %I:%M %p')}</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.contentViewWrapper}>
           <View style={styles.contentView}>
-            <Text numberOfLines={5}>{contentWithoutHTML}</Text>
+            <Text numberOfLines={numberOfLines}>{contentWithoutHTML}</Text>
           </View>
         </View>
-        <View style={styles.optionButtonWrapper}>
+        {onDetailPress !== undefined && onCommentPress !== undefined && <View style={styles.optionButtonWrapper}>
           <TouchableOpacity onPress={onDetailPress} style={styles.optionButton}>
             <Icon name="search" size={20} color="#9007FF"/>
             <Text style={styles.optionButtonText}>  {I18n.t('postList.readMore')}</Text>
@@ -53,9 +53,9 @@ class Post extends Component {
 
           <TouchableOpacity onPress={onCommentPress} style={styles.optionButton}>
             <Icon name="comment" size={20} color="#9007FF"/>
-            <Text style={styles.optionButtonText}>  {I18n.t('postList.comments')}</Text>
+            <Text style={styles.optionButtonText}>  {replies.totalItems} {I18n.t('postList.comments')}</Text>
           </TouchableOpacity>
-        </View>
+        </View>}
       </View>
     )
   }
@@ -122,4 +122,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Post
+export default Post;

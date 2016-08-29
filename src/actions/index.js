@@ -13,6 +13,10 @@ export const FETCH_POST_REQUEST = `FETCH_POST_REQUEST`;
 export const FETCH_POST_SUCCESS = `FETCH_POST_SUCCESS`;
 export const FETCH_POST_FAIL = `FETCH_POST_FAIL`;
 
+export const FETCH_COMMENT_REQUEST = `FETCH_COMMENT_REQUEST`;
+export const FETCH_COMMENT_SUCCESS = `FETCH_COMMENT_SUCCESS`;
+export const FETCH_COMMENT_FAIL = `FETCH_COMMENT_FAIL`;
+
 export const addBlog = (blog:Object) => {
   return {
     type: ADD_BLOG,
@@ -56,7 +60,6 @@ export const fetchBlogInfoFail = (message: string) => ({
   message
 });
 
-
 export const fetchPost = (id: string) => ({
   type: FETCH_POST_REQUEST,
   id
@@ -69,5 +72,21 @@ export const fetchPostSuccess = (posts: any) => ({
 
 export const fetchPostFail = (message: string) => ({
   type: FETCH_POST_FAIL,
+  message
+});
+
+export const fetchComment = (blogId: string, postId: string) => ({
+  type: FETCH_COMMENT_REQUEST,
+  blogId,
+  postId,
+});
+
+export const fetchCommentSuccess = (comments: any) => ({
+  type: FETCH_COMMENT_SUCCESS,
+  comments
+});
+
+export const fetchCommentFail = (message: string) => ({
+  type: FETCH_COMMENT_FAIL,
   message
 });

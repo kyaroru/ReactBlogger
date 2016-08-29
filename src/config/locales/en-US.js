@@ -10,6 +10,12 @@ const en = {
     readMore: 'Read more',
     comments: 'Comments'
   },
+  postDetail: {
+    title: 'Post Detail'
+  },
+  viewComment: {
+    title: 'Comments'
+  },
   ok: 'OK',
   cancel: 'Cancel'
 };

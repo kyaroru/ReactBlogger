@@ -18,12 +18,32 @@ function* fetchPost( postAction ) {
   }
 }
 
+function* fetchComment( commentAction ) {
+  try {
+    const comments = yield call(api.fetchComment, commentAction.blogId, commentAction.postId);
+    if(typeof comments.error !== 'undefined') {
+      yield put({ type: actions.FETCH_COMMENT_FAIL, message: comments.error.message });
+    }
+    else {
+      yield put({ type: actions.FETCH_COMMENT_SUCCESS, comments });
+    }
+  } catch (e) {
+    yield put({ type: actions.FETCH_COMMENT_FAIL, message: e.message });
+  }
+}
+
+
 function* watchFetchPostInfo() {
   yield* takeLatest(actions.FETCH_POST_REQUEST, fetchPost);
+}
+
+function* watchFetchComment() {
+  yield* takeLatest(actions.FETCH_COMMENT_REQUEST, fetchComment);
 }
 
 export default function* postSaga(): any {
   yield [
     fork(watchFetchPostInfo),
+    fork(watchFetchComment),
   ];
 }

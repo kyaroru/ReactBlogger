@@ -14,6 +14,20 @@ const posts = (state = {isFetching: false}, action) => {
   }
 }
 
+const comments = (state = {isFetching: false}, action) => {
+  switch (action.type) {
+    case actions.FETCH_COMMENT_REQUEST:
+      return { isFetching: true };
+    case actions.FETCH_COMMENT_SUCCESS:
+      return { isFetching: false, items: action.comments.items };
+    case actions.FETCH_COMMENT_FAIL:
+      return { isFetching: false, error: action.message };
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  posts
+  posts,
+  comments,
 });

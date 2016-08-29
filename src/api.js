@@ -46,3 +46,17 @@ export const fetchOlderPost = (id: string, token: string) => {
     return response.data;
   })
 };
+
+export const fetchComment = (blogId: string, postId: string) => {
+  const url = api.domain + blogId + '/posts/' + postId + '/comments';
+  const params = {
+    key: api.API_KEY,
+  };
+  return axios.get(url,{params:params})
+  .then((response)=>{
+    // console.log(response);
+    return response.data;
+  },(response)=>{
+    return response.data;
+  })
+};

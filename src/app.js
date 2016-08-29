@@ -6,6 +6,9 @@ import { Router, Scene } from 'react-native-router-flux';
 import { StyleSheet } from 'react-native';
 import BlogListContainer from './containers/BlogListContainer'
 import PostListContainer from './containers/PostListContainer'
+import PostDetailContainer from './containers/PostDetailContainer'
+import CommentContainer from './containers/CommentContainer'
+
 import I18n from './config/i18n'
 
 // I18n.locale = 'zh';
@@ -23,6 +26,18 @@ const scenes = [
     key: 'postList',
     component: PostListContainer,
     title: I18n.t('postList.title'),
+    initial: false
+  },
+  {
+    key: 'postDetail',
+    component: PostDetailContainer,
+    title: I18n.t('postDetail.title'),
+    initial: false
+  },
+  {
+    key: 'viewComment',
+    component: CommentContainer,
+    title: I18n.t('viewComment.title'),
     initial: false
   }
 ];
@@ -54,7 +69,3 @@ const styles = {
     tintColor: 'white'
   }
 }
-
-// <Provider store={store}>
-//   <BlogListContainer></BlogListContainer>
-// </Provider>
