@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PostList from '../components/PostList';
-import { fetchPost } from '../actions'
+import { fetchPost, fetchOlderPost } from '../actions'
 import { Actions } from 'react-native-router-flux';
 
 const mapStateToProps = (store) => {
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPosts: (id) => {
       dispatch(fetchPost(id))
+    },
+    fetchOlderPosts: (id, nextPageToken) => {
+      dispatch(fetchOlderPost(id, nextPageToken))
     },
     onDetailPress: (post) => {
       // console.log('View post: ' + post.id);

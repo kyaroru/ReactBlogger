@@ -18,6 +18,20 @@ function* fetchPost( postAction ) {
   }
 }
 
+function* fetchOlderPost( postAction ) {
+  try {
+    const posts = yield call(api.fetchPost, postAction.id, postAction.nextPageToken);
+    if(typeof posts.error !== 'undefined') {
+      yield put({ type: actions.FETCH_POST_FAIL, message: posts.error.message });
+    }
+    else {
+      yield put({ type: actions.FETCH_POST_SUCCESS, posts });
+    }
+  } catch (e) {
+    yield put({ type: actions.FETCH_POST_FAIL, message: e.message });
+  }
+}
+
 function* fetchComment( commentAction ) {
   try {
     const comments = yield call(api.fetchComment, commentAction.blogId, commentAction.postId);
@@ -32,10 +46,14 @@ function* fetchComment( commentAction ) {
   }
 }
 
-
-function* watchFetchPostInfo() {
+function* watchFetchPost() {
   yield* takeLatest(actions.FETCH_POST_REQUEST, fetchPost);
 }
+
+function* watchFetchOlderPost() {
+  yield* takeLatest(actions.FETCH_OLDER_POST_REQUEST, fetchOlderPost);
+}
+
 
 function* watchFetchComment() {
   yield* takeLatest(actions.FETCH_COMMENT_REQUEST, fetchComment);
@@ -43,7 +61,8 @@ function* watchFetchComment() {
 
 export default function* postSaga(): any {
   yield [
-    fork(watchFetchPostInfo),
+    fork(watchFetchPost),
+    fork(watchFetchOlderPost),
     fork(watchFetchComment),
   ];
 }

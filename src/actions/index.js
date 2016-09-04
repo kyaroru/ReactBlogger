@@ -10,6 +10,7 @@ export const FETCH_BLOG_INFO_SUCCESS = `FETCH_BLOG_INFO_SUCCESS`;
 export const FETCH_BLOG_INFO_FAIL = `FETCH_BLOG_INFO_FAIL`;
 
 export const FETCH_POST_REQUEST = `FETCH_POST_REQUEST`;
+export const FETCH_OLDER_POST_REQUEST = `FETCH_OLDER_POST_REQUEST`;
 export const FETCH_POST_SUCCESS = `FETCH_POST_SUCCESS`;
 export const FETCH_POST_FAIL = `FETCH_POST_FAIL`;
 
@@ -63,6 +64,12 @@ export const fetchBlogInfoFail = (message: string) => ({
 export const fetchPost = (id: string) => ({
   type: FETCH_POST_REQUEST,
   id
+});
+
+export const fetchOlderPost = (id: string, nextPageToken: string) => ({
+  type: FETCH_OLDER_POST_REQUEST,
+  id,
+  nextPageToken
 });
 
 export const fetchPostSuccess = (posts: any) => ({
