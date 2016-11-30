@@ -38,16 +38,16 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
-    marginTop: 64
+    marginTop: 64,
   },
   content: {
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   wrapper: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
 });

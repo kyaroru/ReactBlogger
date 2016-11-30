@@ -1,17 +1,17 @@
-import * as actions from '../actions'
-import { combineReducers } from 'redux'
+import * as actions from '../actions';
+import { combineReducers } from 'redux';
 
 const blogArray:any = [
   {
     id: '3318750962623420514',
     name: 'Carol の 点点滴滴',
-    url: 'http://blog.kyaroru.com/'
+    url: 'http://blog.kyaroru.com/',
   },
   {
     id: '7159470537406093899',
     name: 'Angular',
-    url: 'http://angularjs.blogspot.com/'
-  }
+    url: 'http://angularjs.blogspot.com/',
+  },
 ];
 
 const blog = (item, action) => {
@@ -20,32 +20,33 @@ const blog = (item, action) => {
       return {
         id: action.blog.id,
         name: action.blog.name,
-        url: action.blog.url
-      }
+        url: action.blog.url,
+      };
     default:
-      return item
+      return item;
   }
-}
+};
 
 const blogs = (blogList : any = blogArray, action : any) => {
   switch (action.type) {
     case 'ADD_BLOG':
       return [
         ...blogList,
-        blog(undefined, action)
-      ]
-    case 'REMOVE_BLOG':
-      let index = blogList.findIndex((x) => x.id === action.id);
+        blog(undefined, action),
+      ];
+    case 'REMOVE_BLOG': {
+      const index = blogList.findIndex((x) => x.id === action.id);
       return [
         ...blogList.slice(0, index),
-        ...blogList.slice(index + 1)
-      ]
+        ...blogList.slice(index + 1),
+      ];
+    }
     default:
-      return blogList
+      return blogList;
   }
-}
+};
 
-const blogInfo = (state = {isFetching: false}, action) => {
+const blogInfo = (state = { isFetching: false }, action) => {
   switch (action.type) {
     case actions.FETCH_BLOG_INFO_REQUEST:
       return { isFetching: true };
@@ -56,9 +57,9 @@ const blogInfo = (state = {isFetching: false}, action) => {
     default:
       return state;
   }
-}
+};
 
-const prompt = (state = {isShowPrompt: false, title:'',placeholder:''}, action) => {
+const prompt = (state = { isShowPrompt: false, title: '', placeholder: '' }, action) => {
   switch (action.type) {
     case actions.SHOW_PROMPT:
       return { isShowPrompt: true, title: action.title, placeholder: action.placeholder };
@@ -67,7 +68,7 @@ const prompt = (state = {isShowPrompt: false, title:'',placeholder:''}, action) 
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   blogs,

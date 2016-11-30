@@ -1,16 +1,15 @@
-//@flow
+// @flow
 import { takeLatest } from 'redux-saga';
 import { call, put, fork } from 'redux-saga/effects';
 import * as actions from '../actions';
 import * as api from '../api';
 
-function* fetchPost( postAction ) {
+function* fetchPost(postAction) {
   try {
     const posts = yield call(api.fetchPost, postAction.id);
-    if(typeof posts.error !== 'undefined') {
+    if (typeof posts.error !== 'undefined') {
       yield put({ type: actions.FETCH_POST_FAIL, message: posts.error.message });
-    }
-    else {
+    } else {
       yield put({ type: actions.FETCH_POST_SUCCESS, posts });
     }
   } catch (e) {
@@ -18,13 +17,12 @@ function* fetchPost( postAction ) {
   }
 }
 
-function* fetchOlderPost( postAction ) {
+function* fetchOlderPost(postAction) {
   try {
     const posts = yield call(api.fetchPost, postAction.id, postAction.nextPageToken);
-    if(typeof posts.error !== 'undefined') {
+    if (typeof posts.error !== 'undefined') {
       yield put({ type: actions.FETCH_POST_FAIL, message: posts.error.message });
-    }
-    else {
+    } else {
       yield put({ type: actions.FETCH_POST_SUCCESS, posts });
     }
   } catch (e) {
@@ -32,13 +30,12 @@ function* fetchOlderPost( postAction ) {
   }
 }
 
-function* fetchComment( commentAction ) {
+function* fetchComment(commentAction) {
   try {
     const comments = yield call(api.fetchComment, commentAction.blogId, commentAction.postId);
-    if(typeof comments.error !== 'undefined') {
+    if (typeof comments.error !== 'undefined') {
       yield put({ type: actions.FETCH_COMMENT_FAIL, message: comments.error.message });
-    }
-    else {
+    } else {
       yield put({ type: actions.FETCH_COMMENT_SUCCESS, comments });
     }
   } catch (e) {

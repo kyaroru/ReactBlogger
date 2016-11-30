@@ -1,14 +1,13 @@
 // @flow
-import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import Post from './Post'
-import isEmpty from 'lodash/isEmpty'
+import React, { Component } from 'react';
+import Post from './Post';
+import isEmpty from 'lodash/isEmpty';
 import {
   View,
   StyleSheet,
   ScrollView,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 
 type Props = {
@@ -24,18 +23,34 @@ type Props = {
 class PostList extends Component {
   props: Props;
 
-  constructor(props: Props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.fetchPosts(this.props.blogId);
+  }
+
+  renderPosts() {
+    const { onDetailPress, onCommentPress, posts } = this.props;
+    if (isEmpty(posts)) {
+      return (
+        <View>
+          <Text />
+        </View>
+      );
+    }
+    return posts.map(post =>
+      <Post
+        key={post.id}
+        {...post}
+        numberOfLines={5}
+        onDetailPress={() => onDetailPress(post)}
+        onCommentPress={() => onCommentPress(post)}
+      />
+    );
   }
 
   render() {
     const { isFetching } = this.props;
 
-    return(
+    return (
       <View style={styles.container}>
         <ActivityIndicator
           animating={!!isFetching}
@@ -52,28 +67,7 @@ class PostList extends Component {
           </View>
         </ScrollView>
       </View>
-    )
-
-  }
-
-  renderPosts() {
-    const { onDetailPress, onCommentPress, posts } = this.props;
-    if(isEmpty(posts)){
-      return (
-        <View>
-          <Text> </Text>
-        </View>
-      )
-    }
-    return posts.map(post =>
-      <Post
-        key={post.id}
-        {...post}
-        numberOfLines={5}
-        onDetailPress={()=>onDetailPress(post)}
-        onCommentPress={()=>onCommentPress(post)}
-      />
-    )
+    );
   }
 }
 
@@ -83,17 +77,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
-    marginTop: 64
+    marginTop: 64,
   },
   content: {
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   wrapper: {
     flexDirection: 'column',
-    flex: 1
+    flex: 1,
   },
   centering: {
     position: 'absolute',
@@ -105,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostList
+export default PostList;

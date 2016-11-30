@@ -1,11 +1,11 @@
 // @flow
-import React, { Component } from 'react'
+import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 type props = {
@@ -14,17 +14,17 @@ type props = {
   name: string,
 };
 
-export default ({ onPress, url, name }:props) => (
+export default ({ onPress, url, name }: props) => (
   <TouchableOpacity onPress={onPress} style={styles.item}>
     <View>
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.url}>{url}</Text>
     </View>
-    <View style={{padding:10}}>
-      <Icon name="chevron-right" size={15} color="#aaa" style={styles.iconAdd}/>
+    <View style={{ padding: 10 }}>
+      <Icon name="chevron-right" size={15} color="#aaa" style={styles.iconAdd} />
     </View>
   </TouchableOpacity>
-)
+);
 
 const styles = StyleSheet.create({
   item: {
@@ -36,9 +36,9 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
   },
   name: {
-    fontSize: 16
+    fontSize: 16,
   },
   url: {
-    fontSize: 12
-  }
+    fontSize: 12,
+  },
 });
