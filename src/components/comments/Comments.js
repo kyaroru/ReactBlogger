@@ -1,8 +1,8 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Comment from '../components/Comment';
-import { fetchComment } from '../actions';
+import Comment from './Comment';
+import * as ducks from './ducks';
 import isEmpty from 'lodash/isEmpty';
 
 import {
@@ -16,7 +16,7 @@ import {
 type Props = {
   blogId: string,
   postId: string,
-  fetchComments: Function,
+  fetchComment: Function,
   comments: Array<any>,
   isFetching: bool,
 };
@@ -25,7 +25,7 @@ class CommentContainer extends Component {
   props: Props;
 
   componentDidMount() {
-    this.props.fetchComments(this.props.blogId, this.props.postId);
+    this.props.fetchComment(this.props.blogId, this.props.postId);
   }
 
   renderComments() {
@@ -98,19 +98,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (store) => {
-  return {
-    comments: store.postState.comments.items,
-    isFetching: store.postState.comments.isFetching,
-  };
-};
+const mapStateToProps = (store) => ({
+  comments: store[ducks.NAME].comments.items,
+  isFetching: store[ducks.NAME].comments.isFetching,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchComments: (blogId, postId) => {
-      dispatch(fetchComment(blogId, postId));
-    },
-  };
+const mapDispatchToProps = {
+  fetchComment: ducks.fetchComment,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);

@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import Blog from './Blog';
 import Prompt from 'react-native-prompt';
-import I18n from '../config/i18n';
-import { fetchBlogInfo, showPrompt, hidePrompt } from '../actions';
+import I18n from '../../config/i18n';
+import * as ducks from './ducks';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import {
@@ -146,18 +146,17 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (store) => ({
-  blogs: store.blogState.blogs,
-  isFetching: store.blogState.blogInfo.isFetching,
-  isShowPrompt: store.blogState.prompt.isShowPrompt,
-  promptTitle: store.blogState.prompt.title,
-  promptPlaceholder: store.blogState.prompt.placeholder,
+  blogs: store[ducks.NAME].blogs,
+  isFetching: store[ducks.NAME].blogInfo.isFetching,
+  isShowPrompt: store[ducks.NAME].prompt.isShowPrompt,
+  promptTitle: store[ducks.NAME].prompt.title,
+  promptPlaceholder: store[ducks.NAME].prompt.placeholder,
 });
 
 const mapDispatchToProps = {
-  onBlogPress: Actions.postList,
-  showPrompt,
-  hidePrompt,
-  fetchBlogInfo,
+  showPrompt: ducks.showPrompt,
+  hidePrompt: ducks.hidePrompt,
+  fetchBlogInfo: ducks.fetchBlogInfo,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogList);

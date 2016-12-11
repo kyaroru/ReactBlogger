@@ -9,6 +9,9 @@ import {
   Text,
   ActivityIndicator,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import * as ducks from './ducks';
+import { connect } from 'react-redux';
 
 type Props = {
   onDetailPress: Function,
@@ -16,7 +19,7 @@ type Props = {
   posts: Array<any>,
   isFetching: bool,
   nextPageToken: string,
-  fetchPosts: Function,
+  fetchPost: Function,
   blogId: string
 };
 
@@ -24,11 +27,30 @@ class PostList extends Component {
   props: Props;
 
   componentDidMount() {
-    this.props.fetchPosts(this.props.blogId);
+    this.props.fetchPost(this.props.blogId);
+  }
+
+  onDetailPress(post) {
+    // console.log('View post: ' + post.id);
+    const data = {
+      selectedPost: post,
+    };
+    Actions.postDetail(data);
+  }
+
+  onCommentPress(post) {
+    if (post.replies.totalItems !== '0') {
+      // console.log(post);
+      const data = {
+        postId: post.id,
+        blogId: post.blog.id,
+      };
+      Actions.viewComment(data);
+    }
   }
 
   renderPosts() {
-    const { onDetailPress, onCommentPress, posts } = this.props;
+    const { posts } = this.props;
     if (isEmpty(posts)) {
       return (
         <View>
@@ -41,8 +63,8 @@ class PostList extends Component {
         key={post.id}
         {...post}
         numberOfLines={5}
-        onDetailPress={() => onDetailPress(post)}
-        onCommentPress={() => onCommentPress(post)}
+        onDetailPress={() => this.onDetailPress(post)}
+        onCommentPress={() => this.onCommentPress(post)}
       />
     );
   }
@@ -99,4 +121,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PostList;
+const mapStateToProps = (store) => ({
+  posts: store[ducks.NAME].posts.items,
+  isFetching: store[ducks.NAME].posts.isFetching,
+  nextPageToken: store[ducks.NAME].posts.nextPageToken,
+});
+
+const mapDispatchToProps = {
+  fetchPost: ducks.fetchPost,
+  fetchOlderPost: ducks.fetchOlderPost,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);

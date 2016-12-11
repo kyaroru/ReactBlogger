@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import I18n from '../config/i18n';
+import I18n from '../../config/i18n';
 import {
   View,
   StyleSheet,

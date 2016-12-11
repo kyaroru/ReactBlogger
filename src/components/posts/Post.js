@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import I18n from '../config/i18n';
+import I18n from '../../config/i18n';
 import {
   View,
   StyleSheet,
@@ -39,11 +39,11 @@ class Post extends Component {
             <Text style={styles.subTitle}>{I18n.strftime(new Date(published), '%d %b %Y %I:%M %p')}</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.contentViewWrapper}>
+        <TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
           <View style={styles.contentView}>
             <Text numberOfLines={numberOfLines}>{contentWithoutHTML}</Text>
           </View>
-        </View>
+        </TouchableOpacity>
         {onDetailPress !== undefined && onCommentPress !== undefined && <View style={styles.optionButtonWrapper}>
           <TouchableOpacity onPress={onDetailPress} style={styles.optionButton}>
             <Icon name="search" size={20} color="#9007FF" />

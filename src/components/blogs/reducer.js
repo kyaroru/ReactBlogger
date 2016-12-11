@@ -1,4 +1,4 @@
-import * as actions from '../actions';
+import * as ducks from './ducks';
 import { combineReducers } from 'redux';
 
 const blogArray:any = [
@@ -48,11 +48,11 @@ const blogs = (blogList : any = blogArray, action : any) => {
 
 const blogInfo = (state = { isFetching: false }, action) => {
   switch (action.type) {
-    case actions.FETCH_BLOG_INFO_REQUEST:
+    case ducks.FETCH_BLOG_INFO_REQUEST:
       return { isFetching: true };
-    case actions.FETCH_BLOG_INFO_SUCCESS:
+    case ducks.FETCH_BLOG_INFO_SUCCESS:
       return { isFetching: false, blog: action.blog };
-    case actions.FETCH_BLOG_INFO_FAIL:
+    case ducks.FETCH_BLOG_INFO_FAIL:
       return { isFetching: false, error: action.message };
     default:
       return state;
@@ -61,9 +61,9 @@ const blogInfo = (state = { isFetching: false }, action) => {
 
 const prompt = (state = { isShowPrompt: false, title: '', placeholder: '' }, action) => {
   switch (action.type) {
-    case actions.SHOW_PROMPT:
+    case ducks.SHOW_PROMPT:
       return { isShowPrompt: true, title: action.title, placeholder: action.placeholder };
-    case actions.HIDE_PROMPT:
+    case ducks.HIDE_PROMPT:
       return { isShowPrompt: false, title: '', placeholder: '' };
     default:
       return state;

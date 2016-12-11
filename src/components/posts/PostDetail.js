@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import Post from '../components/Post';
+import Post from './Post';
 import {
   View,
   StyleSheet,
