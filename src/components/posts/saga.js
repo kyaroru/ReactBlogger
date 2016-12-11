@@ -19,14 +19,16 @@ function* fetchPost(postAction) {
 
 function* fetchOlderPost(postAction) {
   try {
-    const posts = yield call(api.fetchPost, postAction.id, postAction.nextPageToken);
-    if (typeof posts.error !== 'undefined') {
-      yield put({ type: ducks.FETCH_POST_FAIL, message: posts.error.message });
-    } else {
-      yield put({ type: ducks.FETCH_POST_SUCCESS, posts });
+    if (postAction.nextPageToken) {
+      const posts = yield call(api.fetchOlderPost, postAction.id, postAction.nextPageToken);
+      if (typeof posts.error !== 'undefined') {
+        yield put({ type: ducks.FETCH_OLDER_POST_FAIL, message: posts.error.message });
+      } else {
+        yield put({ type: ducks.FETCH_OLDER_POST_SUCCESS, posts });
+      }
     }
   } catch (e) {
-    yield put({ type: ducks.FETCH_POST_FAIL, message: e.message });
+    yield put({ type: ducks.FETCH_OLDER_POST_FAIL, message: e.message });
   }
 }
 

@@ -8,6 +8,7 @@ import {
   ScrollView,
   Text,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import * as ducks from './ducks';
@@ -18,13 +19,22 @@ type Props = {
   onCommentPress: Function,
   posts: Array<any>,
   isFetching: bool,
+  isFetchingOlderPost: bool,
   nextPageToken: string,
   fetchPost: Function,
+  fetchOlderPost: Function,
   blogId: string
 };
 
 class PostList extends Component {
   props: Props;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      labelLoadMore: 'Load more',
+    };
+  }
 
   componentDidMount() {
     this.props.fetchPost(this.props.blogId);
@@ -49,6 +59,14 @@ class PostList extends Component {
     }
   }
 
+  onLoadMore() {
+    if (this.props.nextPageToken) {
+      this.props.fetchOlderPost(this.props.blogId, this.props.nextPageToken);
+    } else {
+      this.setState({ labelLoadMore: 'This is the end :p' });
+    }
+  }
+
   renderPosts() {
     const { posts } = this.props;
     if (isEmpty(posts)) {
@@ -70,7 +88,7 @@ class PostList extends Component {
   }
 
   render() {
-    const { isFetching } = this.props;
+    const { isFetching, isFetchingOlderPost } = this.props;
 
     return (
       <View style={styles.container}>
@@ -84,6 +102,14 @@ class PostList extends Component {
             <View style={styles.wrapper}>
               <View>
                 {!isFetching && this.renderPosts()}
+                {!isFetching && <TouchableOpacity onPress={() => this.onLoadMore()} style={{ flexDirection: 'row', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
+                  <Text style={{ paddingRight: 5 }}>{this.state.labelLoadMore}</Text>
+                  {isFetchingOlderPost && <ActivityIndicator
+                    style={{ padding: 0, margin: 0 }}
+                    color="black"
+                    animating={isFetchingOlderPost}
+                  />}
+                </TouchableOpacity>}
               </View>
             </View>
           </View>
@@ -124,6 +150,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (store) => ({
   posts: store[ducks.NAME].posts.items,
   isFetching: store[ducks.NAME].posts.isFetching,
+  isFetchingOlderPost: store[ducks.NAME].posts.isFetchingOlderPost,
   nextPageToken: store[ducks.NAME].posts.nextPageToken,
 });
 
