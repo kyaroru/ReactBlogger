@@ -116,7 +116,7 @@ android {
         config {
             keyAlias 'kyaroru'
             keyPassword 'Ca3r6oL'
-            storeFile file('/Users/carol.chiew/kyaroru-release-key.jks')
+            storeFile file(projectDir.getPath() + '/../../../../../kyaroru-release-key.jks')
             storePassword 'Ca3r6oL'
         }
     }
