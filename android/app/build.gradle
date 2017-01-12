@@ -82,6 +82,35 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+task taskGitPullBuild(type: Exec) {
+    Gradle gradle = getGradle()
+    String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+    if (tskReqStr.contains('Release')) {
+        println System.env.PATH
+        println "Running Git Pull and Build"
+        if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+            // environment "PATH", System.env.PATH + "" // set windows path for npm & ionic
+            commandLine 'cmd', projectDir.getPath() + '/../../git-pull-build.sh'
+        } else {
+            environment "PATH", System.env.PATH + ":/usr/local/bin"
+            commandLine 'sh', projectDir.getPath() + '/../../git-pull-build.sh'
+        }
+    } else {
+        println "In Debug mode: no pull & build required"
+    }
+}
+
+gradle.projectsEvaluated {
+    Gradle gradle = getGradle()
+    String  tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+    if (tskReqStr.contains('Release')) {
+        tasks.taskGitPullBuild.execute()
+    } else {
+        println "In Debug mode: no pull & build required"
+    }
+
+}
+
 android {
     signingConfigs {
         config {
