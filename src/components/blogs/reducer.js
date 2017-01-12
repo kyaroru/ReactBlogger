@@ -2,10 +2,20 @@ import * as ducks from './ducks';
 import { combineReducers } from 'redux';
 
 const blogArray:any = [
+  // {
+  //   id: '3318750962623420514',
+  //   name: 'Carol の 点点滴滴',
+  //   url: 'http://blog.kyaroru.com/',
+  // },
   {
-    id: '3318750962623420514',
-    name: 'Carol の 点点滴滴',
-    url: 'http://blog.kyaroru.com/',
+    id: '2120328063286836889',
+    name: 'Google on BlogSpot',
+    url: 'http://google.blogspot.com/',
+  },
+  {
+    id: '4191548740220130749',
+    name: 'The Firebase Blog',
+    url: 'http://firebase.googleblog.com/',
   },
   {
     id: '7159470537406093899',

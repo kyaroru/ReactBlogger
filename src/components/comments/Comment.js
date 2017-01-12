@@ -40,7 +40,7 @@ export default class Comment extends Component {
             </View>
           </View>
         </View>
-        <View style={[styles.contentViewWrapper, { paddingBottom: 10, borderColor: '#eee', borderBottomWidth: 1 }]}>
+        <View style={[styles.contentViewWrapper, { paddingBottom: 10, borderColor: '#eee', borderBottomWidth: 1, marginBottom: 10 }]}>
           <View style={styles.contentView}>
             <Text>{contentWithoutHTML}</Text>
           </View>
