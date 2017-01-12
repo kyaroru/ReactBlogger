@@ -21,6 +21,14 @@ function* fetchBlogInfo(blogAction) {
     const blog = yield call(api.fetchBlogInfo, blogAction.url);
     if (typeof blog.error !== 'undefined') {
       yield put({ type: ducks.FETCH_BLOG_INFO_FAIL, message: blog.error.message });
+      if (blog.error.message === 'Not Found')
+      Alert.alert(
+        'Opps',
+        'The blog is not found !',
+        [
+           { text: I18n.t('ok'), onPress: null },
+        ],
+      );
     } else {
       yield put({ type: ducks.FETCH_BLOG_INFO_SUCCESS, blog });
       const isExist = yield checkIsBlogExist(blog);
