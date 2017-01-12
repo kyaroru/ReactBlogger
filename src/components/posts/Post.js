@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  WebView,
 } from 'react-native';
 import HTMLView from 'react-native-htmlview';
 
@@ -34,19 +35,21 @@ class Post extends Component {
     const { withHTML, onDetailPress, onCommentPress, content, title, published, numberOfLines, replies } = this.props;
     const contentWithoutHTML = this.formatContent(content);
     return (
-      <View style={styles.item}>
+      <View style={withHTML ? styles.itemWithHtml : styles.item}>
         <TouchableOpacity onPress={onDetailPress} style={styles.contentViewWrapper}>
           <View style={styles.titleView}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.subTitle}>{I18n.strftime(new Date(published), '%d %b %Y %I:%M %p')}</Text>
           </View>
         </TouchableOpacity>
-        {withHTML && <View style={styles.contentViewWrapper}>
+        {withHTML && <View style={styles.contentViewWrapperWithHTML}>
           <View style={styles.contentView}>
-            <HTMLView
-              value={content}
-              stylesheet={styles}
-            />
+            <WebView
+              ref={'webview'}
+              automaticallyAdjustContentInsets={false}
+              style={styles.webView}
+              // scalesPageToFit={true}
+              source={{ html: content}} />
           </View>
         </View>}
         {!withHTML &&<TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
@@ -78,10 +81,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#eee',
   },
+  itemWithHtml: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    flex: 1,
+    borderColor: '#eee',
+  },
   contentViewWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
+  },
+  contentViewWrapperWithHTML: {
+    flexDirection: 'row',
+    flex: 1,
   },
   titleView: {
     flexDirection: 'column',
@@ -127,6 +140,11 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
   },
+  webView: {
+    flex: 1,
+    // borderColor: '#eee',
+    // borderWidth: 1,
+  }
 });
 
 export default Post;

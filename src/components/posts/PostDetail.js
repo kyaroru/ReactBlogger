@@ -18,15 +18,11 @@ export default class PostDetail extends Component {
     const { selectedPost } = this.props;
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <View style={styles.content}>
-            <View style={styles.wrapper}>
-              <View>
-                <Post {...selectedPost} withHTML />
-              </View>
-            </View>
+        <View style={styles.content}>
+          <View style={styles.wrapper}>
+            <Post {...selectedPost} withHTML />
           </View>
-        </ScrollView>
+        </View>
       </View>
     );
   }
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
   content: {
     padding: 10,
     flexDirection: 'row',
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'flex-start',
   },
   wrapper: {
