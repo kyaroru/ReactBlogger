@@ -80,6 +80,7 @@ class PostList extends Component {
       <Post
         key={post.id}
         {...post}
+        withHTML={false}
         numberOfLines={5}
         onDetailPress={() => this.onDetailPress(post)}
         onCommentPress={() => this.onCommentPress(post)}

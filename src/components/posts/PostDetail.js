@@ -22,7 +22,7 @@ export default class PostDetail extends Component {
           <View style={styles.content}>
             <View style={styles.wrapper}>
               <View>
-                <Post {...selectedPost} />
+                <Post {...selectedPost} withHTML />
               </View>
             </View>
           </View>

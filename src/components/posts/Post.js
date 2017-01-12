@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import HTMLView from 'react-native-htmlview';
 
 type Props = {
   onDetailPress: Function,
@@ -17,6 +18,7 @@ type Props = {
   published: string,
   numberOfLines: number,
   replies: Array<any>;
+  withHTML: bool,
 };
 
 class Post extends Component {
@@ -29,7 +31,7 @@ class Post extends Component {
   }
 
   render() {
-    const { onDetailPress, onCommentPress, content, title, published, numberOfLines, replies } = this.props;
+    const { withHTML, onDetailPress, onCommentPress, content, title, published, numberOfLines, replies } = this.props;
     const contentWithoutHTML = this.formatContent(content);
     return (
       <View style={styles.item}>
@@ -39,11 +41,19 @@ class Post extends Component {
             <Text style={styles.subTitle}>{I18n.strftime(new Date(published), '%d %b %Y %I:%M %p')}</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
+        {withHTML && <View style={styles.contentViewWrapper}>
+          <View style={styles.contentView}>
+            <HTMLView
+              value={content}
+              stylesheet={styles}
+            />
+          </View>
+        </View>}
+        {!withHTML &&<TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
           <View style={styles.contentView}>
             <Text numberOfLines={numberOfLines}>{contentWithoutHTML}</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity>}
         {onDetailPress !== undefined && onCommentPress !== undefined && <View style={styles.optionButtonWrapper}>
           <TouchableOpacity onPress={onDetailPress} style={styles.optionButton}>
             <Icon name="search" size={20} color="#9007FF" />
