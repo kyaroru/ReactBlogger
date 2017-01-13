@@ -11,11 +11,6 @@ sudo gem install fastlane
 fastlane android test
 ```
 Runs all the tests
-### android alpha
-```
-fastlane android alpha
-```
-Submit a new Alpha Build to Google Play Store
 ### android bump_version_code
 ```
 fastlane android bump_version_code
@@ -26,6 +21,11 @@ fastlane android bump_version_code
 fastlane android input_version_name
 ```
 
+### android alpha
+```
+fastlane android alpha
+```
+Submit a new Alpha Build to Google Play Store
 ### android beta
 ```
 fastlane android beta

@@ -57,12 +57,12 @@ platform :android do
 
   desc "Submit a new Alpha Build to Google Play Store"
   lane :alpha do
+    bump_version_code
+    input_version_name
     gradle(
       task: 'assemble',
       build_type: 'Release'
     )
-    bump_version_code
-    input_version_name
     supply(track: 'alpha')
     notification(subtitle: "Submitted ALPHA build to Google Play Store", message: "Success 🎉")
     # sh "your_script.sh"
@@ -71,12 +71,12 @@ platform :android do
 
   desc "Submit a new Beta Build to Google Play Store"
   lane :beta do
+    bump_version_code
+    input_version_name
     gradle(
       task: 'assemble',
       build_type: 'Release'
     )
-    bump_version_code
-    input_version_name
     supply(track: 'beta')
     notification(subtitle: "Submitted BETA build to Google Play Store", message: "Success 🎉")
     # sh "your_script.sh"
