@@ -1,0 +1,2 @@
+json_key_file "~/kyaroru-developer-secret.json" # Path to the json secret file - Follow https://github.com/fastlane/supply#setup to get one
+package_name "com.reactblogger" # e.g. com.krausefx.app
