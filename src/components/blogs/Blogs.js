@@ -15,6 +15,7 @@ import {
   TouchableOpacity,
   Platform,
   AlertIOS,
+  StatusBar,
 } from 'react-native';
 
 type Props = {
@@ -70,6 +71,10 @@ class BlogList extends Component {
 
     return (
       <View style={styles.container}>
+        <StatusBar
+          backgroundColor={'#9007FF'}
+          barStyle="light-content"
+        />
         <ActivityIndicator
           animating={!!isFetching}
           style={styles.centering}
