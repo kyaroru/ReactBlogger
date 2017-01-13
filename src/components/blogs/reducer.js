@@ -1,30 +1,39 @@
 import * as ducks from './ducks';
 import { combineReducers } from 'redux';
 
-const blogArray:any = [
-  // {
+const blogArray:any = {
+  // 3318750962623420514: {
   //   id: '3318750962623420514',
   //   name: 'Carol の 点点滴滴',
   //   url: 'http://blog.kyaroru.com/',
   // },
-  {
+  '2120328063286836889': {
     id: '2120328063286836889',
     name: 'Google on BlogSpot',
     url: 'http://google.blogspot.com/',
   },
-  {
+  '4191548740220130749': {
     id: '4191548740220130749',
     name: 'The Firebase Blog',
     url: 'http://firebase.googleblog.com/',
   },
-  {
+  '7159470537406093899': {
     id: '7159470537406093899',
     name: 'Angular',
     url: 'http://angularjs.blogspot.com/',
   },
-];
+};
 
-const blog = (item, action) => {
+const reduce = (array, reduceFunc, initValue) => {
+  let nextValue = initValue;
+  for (let i = 0; i < array.length; i++) {
+    const item = array[i];
+    nextValue = reduceFunc(nextValue, item, i);
+  }
+  return nextValue;
+};
+
+const blog = (action) => {
   switch (action.type) {
     case 'ADD_BLOG':
       return {
@@ -33,23 +42,26 @@ const blog = (item, action) => {
         url: action.blog.url,
       };
     default:
-      return item;
+      return {};
   }
 };
 
 const blogs = (blogList : any = blogArray, action : any) => {
   switch (action.type) {
     case 'ADD_BLOG':
-      return [
+      return {
         ...blogList,
-        blog(undefined, action),
-      ];
+        [action.blog.id]: {
+          id: action.blog.id,
+          name: action.blog.name,
+          url: action.blog.url,
+        },
+      };
     case 'REMOVE_BLOG': {
-      const index = blogList.findIndex((x) => x.id === action.id);
-      return [
-        ...blogList.slice(0, index),
-        ...blogList.slice(index + 1),
-      ];
+      const newBlogList = Object.assign({}, blogList);
+      const id = action.id;
+      delete newBlogList[id];
+      return newBlogList;
     }
     default:
       return blogList;
@@ -80,8 +92,18 @@ const prompt = (state = { isShowPrompt: false, title: '', placeholder: '' }, act
   }
 };
 
+const deleteMode = (state = { isDeleteModeOn: false }, action) => {
+  switch (action.type) {
+    case ducks.TOGGLE_DELETE_MODE:
+      return { isDeleteModeOn: !state.isDeleteModeOn };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   blogs,
   blogInfo,
   prompt,
+  deleteMode,
 });

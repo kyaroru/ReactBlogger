@@ -9,6 +9,7 @@ import I18n from '../../config/i18n';
 
 function* checkIsBlogExist(blog) {
   const newBlogId = blog.id;
+  console.log(blog);
   const existingBlog = yield select(ducks.getBlogById, newBlogId);
   if (!isEmpty(existingBlog)) {
     return true;

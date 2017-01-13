@@ -17,6 +17,7 @@ import {
   AlertIOS,
   StatusBar,
 } from 'react-native';
+import { confirmation } from '../../utils/alert';
 
 type Props = {
   showPrompt: Function,
@@ -27,6 +28,8 @@ type Props = {
   promptTitle: string,
   promptPlaceholder: string,
   isShowPrompt: bool,
+  isDeleteModeOn: bool,
+  removeBlog: Function,
 };
 
 class BlogList extends Component {
@@ -66,8 +69,16 @@ class BlogList extends Component {
     return str.replace(new RegExp(search, 'g'), replacement);
   }
 
+  removeBlog(blog) {
+    const { removeBlog } = this.props;
+    const confirmRemoveBlog = () => {
+      removeBlog(blog.id);
+    };
+    confirmation('Confirm', `Are you sure you want to remove the blog [${blog.name}] ?`, confirmRemoveBlog);
+  }
+
   render() {
-    const { blogs, isFetching, promptTitle, promptPlaceholder, isShowPrompt, hidePrompt } = this.props;
+    const { blogs, isFetching, promptTitle, promptPlaceholder, isShowPrompt, hidePrompt, isDeleteModeOn } = this.props;
 
     return (
       <View style={styles.container}>
@@ -84,11 +95,13 @@ class BlogList extends Component {
           <View style={styles.content}>
             <View style={styles.wrapper}>
               <View>
-                {blogs.map(blog =>
+                {Object.keys(blogs).map(key =>
                   <Blog
-                    key={blog.id}
-                    {...blog}
-                    onPress={() => Actions.postList({ blogId: blog.id })}
+                    key={key}
+                    {...blogs[key]}
+                    isDeleteModeOn={isDeleteModeOn}
+                    onPress={() => Actions.postList({ blogId: blogs[key].id })}
+                    onDeletePress={() => this.removeBlog(blogs[key])}
                   />
                 )}
               </View>
@@ -156,12 +169,14 @@ const mapStateToProps = (store) => ({
   isShowPrompt: store[ducks.NAME].prompt.isShowPrompt,
   promptTitle: store[ducks.NAME].prompt.title,
   promptPlaceholder: store[ducks.NAME].prompt.placeholder,
+  isDeleteModeOn: store[ducks.NAME].deleteMode.isDeleteModeOn,
 });
 
 const mapDispatchToProps = {
   showPrompt: ducks.showPrompt,
   hidePrompt: ducks.hidePrompt,
   fetchBlogInfo: ducks.fetchBlogInfo,
+  removeBlog: ducks.removeBlog,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogList);

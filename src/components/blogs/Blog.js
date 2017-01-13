@@ -12,16 +12,19 @@ type props = {
   onPress: any,
   url: string,
   name: string,
+  isDeleteModeOn: bool,
+  onDeletePress: any,
 };
 
-export default ({ onPress, url, name }: props) => (
-  <TouchableOpacity onPress={onPress} style={styles.item}>
+export default ({ onPress, url, name, isDeleteModeOn, onDeletePress }: props) => (
+  <TouchableOpacity onPress={isDeleteModeOn ? onDeletePress : onPress} style={styles.item}>
     <View>
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.url}>{url}</Text>
     </View>
-    <View style={{ padding: 10 }}>
-      <Icon name="chevron-right" size={15} color="#aaa" style={styles.iconAdd} />
+    <View style={{ padding: 10, paddingRight: 0 }}>
+      {isDeleteModeOn && <Icon name="trash" size={20} color="#aaa" style={styles.iconAdd} />}
+      {!isDeleteModeOn && <Icon name="chevron-right" size={20} color="#aaa" style={styles.iconAdd} />}
     </View>
   </TouchableOpacity>
 );
