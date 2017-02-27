@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import createStore from './createStore';
 import { Router, Scene } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import Blogs from './components/blogs/Blogs';
 import Posts from './components/posts/Posts';
 import PostDetail from './components/posts/PostDetail';
@@ -23,9 +23,12 @@ export default class Main extends Component {
         component: Blogs,
         title: I18n.t('blogList.title'),
         initial: true,
-        renderRightButton: () => <TouchableOpacity style={{ paddingRight: 10 }} onPress={() => {
-          store.dispatch({ type: blogActions.TOGGLE_DELETE_MODE });
-        }}><Icon name="trash" size={20} color="#fff" /></TouchableOpacity>
+        renderRightButton: () => <TouchableOpacity
+          style={{ paddingRight: 10 }}
+          onPress={() => {
+            store.dispatch({ type: blogActions.TOGGLE_DELETE_MODE });
+          }}
+        ><Icon name="trash" size={20} color="#fff" /></TouchableOpacity>,
       },
       {
         key: 'postList',
@@ -52,7 +55,7 @@ export default class Main extends Component {
         <Router navigationBarStyle={styles.barStyle} titleStyle={styles.titleStyle} barButtonIconStyle={styles.barButtonIconStyle}>
           <Scene key="root">
             {scenes.map(scene =>
-              <Scene key={scene.key} component={scene.component} title={scene.title} initial={scene.initial} renderRightButton={scene.renderRightButton}/>
+              <Scene key={scene.key} component={scene.component} title={scene.title} initial={scene.initial} renderRightButton={scene.renderRightButton} />
             )}
           </Scene>
         </Router>
