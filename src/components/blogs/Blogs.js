@@ -32,10 +32,15 @@ type Props = {
   isShowPrompt: bool,
   isDeleteModeOn: bool,
   removeBlog: Function,
+  initializeBlog: Function,
 };
 
 class BlogList extends Component {
   props: Props;
+
+  componentDidMount() {
+    this.props.initializeBlog();
+  }
 
   addNewBlog() {
     const { showPrompt } = this.props;
@@ -199,6 +204,7 @@ const mapDispatchToProps = {
   hidePrompt: ducks.hidePrompt,
   fetchBlogInfo: ducks.fetchBlogInfo,
   removeBlog: ducks.removeBlog,
+  initializeBlog: ducks.initializeBlog,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogList);

@@ -1,6 +1,9 @@
 // @flow
 export const NAME = 'BLOG';
 
+export const INITIALIZE_BLOG = 'INITIALIZE_BLOG';
+export const INITIALIZE_BLOG_SUCCESS = 'INITIALIZE_BLOG_SUCCESS';
+
 export const REMOVE_BLOG = 'REMOVE_BLOG';
 export const ADD_BLOG = 'ADD_BLOG';
 
@@ -12,6 +15,8 @@ export const HIDE_PROMPT = 'HIDE_PROMPT';
 export const FETCH_BLOG_INFO_REQUEST = 'FETCH_BLOG_INFO_REQUEST';
 export const FETCH_BLOG_INFO_SUCCESS = 'FETCH_BLOG_INFO_SUCCESS';
 export const FETCH_BLOG_INFO_FAIL = 'FETCH_BLOG_INFO_FAIL';
+
+export const getBlogList = (state) => state[NAME].blogs;
 
 export const getBlogById = (state, id) => {
   const blogs = state[NAME].blogs;
@@ -27,6 +32,15 @@ export const addBlog = (blog: Object) => ({
 export const removeBlog = (id:string) => ({
   type: REMOVE_BLOG,
   id,
+});
+
+export const initializeBlog = () => ({
+  type: INITIALIZE_BLOG,
+});
+
+export const initializeBlogSuccess = (blogList) => ({
+  type: INITIALIZE_BLOG_SUCCESS,
+  blogList,
 });
 
 export const toggleDeleteMode = () => ({

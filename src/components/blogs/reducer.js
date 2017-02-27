@@ -48,7 +48,9 @@ const blogArray:any = {
 
 const blogs = (blogList : any = blogArray, action : any) => {
   switch (action.type) {
-    case 'ADD_BLOG':
+    case ducks.INITIALIZE_BLOG_SUCCESS:
+      return action.blogList;
+    case ducks.ADD_BLOG:
       return {
         ...blogList,
         [action.blog.id]: {
@@ -57,7 +59,7 @@ const blogs = (blogList : any = blogArray, action : any) => {
           url: action.blog.url,
         },
       };
-    case 'REMOVE_BLOG': {
+    case ducks.REMOVE_BLOG: {
       const newBlogList = Object.assign({}, blogList);
       const id = action.id;
       delete newBlogList[id];
