@@ -18,6 +18,8 @@ import {
   StatusBar,
 } from 'react-native';
 import { confirmation } from '../../utils/alert';
+import isEmpty from 'lodash/isEmpty';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 type Props = {
   showPrompt: Function,
@@ -77,8 +79,48 @@ class BlogList extends Component {
     confirmation('Confirm', `Are you sure you want to remove the blog [${blog.name}] ?`, confirmRemoveBlog);
   }
 
+  renderList() {
+    const { blogs, isDeleteModeOn } = this.props;
+    return (
+      <ScrollView>
+        <View style={styles.content}>
+          <View style={styles.wrapper}>
+            <View>
+              {Object.keys(blogs).map(key =>
+                <Blog
+                  key={key}
+                  {...blogs[key]}
+                  isDeleteModeOn={isDeleteModeOn}
+                  onPress={() => Actions.postList({ blogId: blogs[key].id })}
+                  onDeletePress={() => this.removeBlog(blogs[key])}
+                />
+              )}
+            </View>
+            <TouchableOpacity onPress={() => this.addNewBlog()} style={styles.itemNew}>
+              <View>
+                <Text style={{ color: '#8C07EB' }}>{I18n.t('blogList.addNewBlog')}</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
+
+  renderEmptyList() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{ marginBottom: 20 }}><Icon name="rss" size={100} color="#aaa" style={styles.iconAdd} /></View>
+        <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.addNewBlog()} >
+          <Text>{I18n.t('blogList.noBlog')}</Text>
+          <Text style={{ color: '#8C07EB' }}>{I18n.t('blogList.addOneNow')}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   render() {
-    const { blogs, isFetching, promptTitle, promptPlaceholder, isShowPrompt, hidePrompt, isDeleteModeOn } = this.props;
+    const { blogs, isFetching, promptTitle, promptPlaceholder, isShowPrompt, hidePrompt } = this.props;
 
     return (
       <View style={styles.container}>
@@ -91,29 +133,8 @@ class BlogList extends Component {
           style={styles.centering}
           size="large"
         />
-        <ScrollView>
-          <View style={styles.content}>
-            <View style={styles.wrapper}>
-              <View>
-                {Object.keys(blogs).map(key =>
-                  <Blog
-                    key={key}
-                    {...blogs[key]}
-                    isDeleteModeOn={isDeleteModeOn}
-                    onPress={() => Actions.postList({ blogId: blogs[key].id })}
-                    onDeletePress={() => this.removeBlog(blogs[key])}
-                  />
-                )}
-              </View>
-              <TouchableOpacity onPress={() => this.addNewBlog()} style={styles.itemNew}>
-                <View>
-                  <Text style={{ color: '#8C07EB' }}>{I18n.t('blogList.addNewBlog')}</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </ScrollView>
-
+        {!isEmpty(blogs) && this.renderList()}
+        {isEmpty(blogs) && this.renderEmptyList()}
         <Prompt
           title={promptTitle}
           placeholder={promptPlaceholder}
@@ -140,6 +161,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
+    flex: 1,
   },
   wrapper: {
     flexDirection: 'column',

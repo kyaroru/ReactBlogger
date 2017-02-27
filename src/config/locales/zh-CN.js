@@ -1,6 +1,8 @@
 const zh = {
   blogList: {
     title: '部落格列表',
+    noBlog: '你还没有部落格诶',
+    addOneNow: '赶快加一个 :p',
     addNewBlog: '添加部落格',
     enterBlogURL: '输入部落格URL',
     enterBlogURLInfo: '请输入要加入列表的部落格URL',

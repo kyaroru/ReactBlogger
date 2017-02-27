@@ -7,44 +7,44 @@ const blogArray:any = {
   //   name: 'Carol の 点点滴滴',
   //   url: 'http://blog.kyaroru.com/',
   // },
-  '2120328063286836889': {
-    id: '2120328063286836889',
-    name: 'Google on BlogSpot',
-    url: 'http://google.blogspot.com/',
-  },
-  '4191548740220130749': {
-    id: '4191548740220130749',
-    name: 'The Firebase Blog',
-    url: 'http://firebase.googleblog.com/',
-  },
-  '7159470537406093899': {
-    id: '7159470537406093899',
-    name: 'Angular',
-    url: 'http://angularjs.blogspot.com/',
-  },
+  // '2120328063286836889': {
+  //   id: '2120328063286836889',
+  //   name: 'Google on BlogSpot',
+  //   url: 'http://google.blogspot.com/',
+  // },
+  // '4191548740220130749': {
+  //   id: '4191548740220130749',
+  //   name: 'The Firebase Blog',
+  //   url: 'http://firebase.googleblog.com/',
+  // },
+  // '7159470537406093899': {
+  //   id: '7159470537406093899',
+  //   name: 'Angular',
+  //   url: 'http://angularjs.blogspot.com/',
+  // },
 };
 
-const reduce = (array, reduceFunc, initValue) => {
-  let nextValue = initValue;
-  for (let i = 0; i < array.length; i++) {
-    const item = array[i];
-    nextValue = reduceFunc(nextValue, item, i);
-  }
-  return nextValue;
-};
-
-const blog = (action) => {
-  switch (action.type) {
-    case 'ADD_BLOG':
-      return {
-        id: action.blog.id,
-        name: action.blog.name,
-        url: action.blog.url,
-      };
-    default:
-      return {};
-  }
-};
+// const reduce = (array, reduceFunc, initValue) => {
+//   let nextValue = initValue;
+//   for (let i = 0; i < array.length; i++) {
+//     const item = array[i];
+//     nextValue = reduceFunc(nextValue, item, i);
+//   }
+//   return nextValue;
+// };
+//
+// const blog = (action) => {
+//   switch (action.type) {
+//     case 'ADD_BLOG':
+//       return {
+//         id: action.blog.id,
+//         name: action.blog.name,
+//         url: action.blog.url,
+//       };
+//     default:
+//       return {};
+//   }
+// };
 
 const blogs = (blogList : any = blogArray, action : any) => {
   switch (action.type) {

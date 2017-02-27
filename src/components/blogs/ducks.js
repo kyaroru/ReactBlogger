@@ -4,7 +4,7 @@ export const NAME = 'BLOG';
 export const REMOVE_BLOG = 'REMOVE_BLOG';
 export const ADD_BLOG = 'ADD_BLOG';
 
-export const TOGGLE_DELETE_MODE = "TOGGLE_DELETE_MODE";
+export const TOGGLE_DELETE_MODE = 'TOGGLE_DELETE_MODE';
 
 export const SHOW_PROMPT = 'SHOW_PROMPT';
 export const HIDE_PROMPT = 'HIDE_PROMPT';
