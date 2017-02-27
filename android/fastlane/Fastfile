@@ -55,6 +55,17 @@ platform :android do
     puts "Version name is now updated to " + versionName + " 🚀"
   end
 
+  desc "Build a version"
+  lane :build do
+    gradle(
+      task: 'assemble',
+      build_type: 'Release'
+    )
+    notification(subtitle: "Success Build ReactBlogger", message: "Success 🎉")
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
   desc "Submit a new Alpha Build to Google Play Store"
   lane :alpha do
     bump_version_code
