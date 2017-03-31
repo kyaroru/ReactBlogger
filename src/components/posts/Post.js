@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   WebView,
 } from 'react-native';
-import HTMLView from 'react-native-htmlview';
+// import HTMLView from 'react-native-htmlview';
 
 type Props = {
   onDetailPress: Function,
@@ -49,10 +49,11 @@ class Post extends Component {
               automaticallyAdjustContentInsets={false}
               style={styles.webView}
               // scalesPageToFit={true}
-              source={{ html: content}} />
+              source={{ html: content }}
+            />
           </View>
         </View>}
-        {!withHTML &&<TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
+        {!withHTML && <TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
           <View style={styles.contentView}>
             <Text numberOfLines={numberOfLines}>{contentWithoutHTML}</Text>
           </View>
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderColor: '#eee',
     // borderWidth: 1,
-  }
+  },
 });
 
 export default Post;

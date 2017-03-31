@@ -4,7 +4,6 @@ import Post from './Post';
 import {
   View,
   StyleSheet,
-  ScrollView,
 } from 'react-native';
 
 type Props = {
