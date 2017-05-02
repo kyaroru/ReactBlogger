@@ -68,8 +68,8 @@ platform :android do
 
   desc "Submit a new Alpha Build to Google Play Store"
   lane :alpha do
-    # bump_version_code
-    # input_version_name
+    bump_version_code
+    input_version_name
     gradle(
       task: 'assemble',
       build_type: 'Release'

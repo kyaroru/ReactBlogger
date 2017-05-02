@@ -47,6 +47,8 @@
 		E964A281260F48659A4513A0 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEE35F797ED42A9AFA7B0B5 /* FontAwesome.ttf */; };
 		F60DD93B047442ADB2680616 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 23DE5B14DC5B4DAE98876A9F /* EvilIcons.ttf */; };
 		FF05F28D82A34BF9AAD9F9BA /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A63FD17D612443B0AE4C413B /* Zocial.ttf */; };
+		8EF11323673E43ECBC4D0476 /* libCodePush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7820C8C96DF449FABF2B3E79 /* libCodePush.a */; };
+		63E8FA21ED15463B8E8BDA9A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E597C3B79BD40049675728D /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +303,9 @@
 		ABD8D0D207D94A15A26517EF /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		AF1054AB057C4CA9A6266AD8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		EAA704F93B7C42B1A18AEC65 /* libRNI18n.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNI18n.a; sourceTree = "<group>"; };
+		A36C52789F374BDE8EB8D15C /* CodePush.xcodeproj */ = {isa = PBXFileReference; name = "CodePush.xcodeproj"; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7820C8C96DF449FABF2B3E79 /* libCodePush.a */ = {isa = PBXFileReference; name = "libCodePush.a"; path = "libCodePush.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		5E597C3B79BD40049675728D /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -329,6 +334,8 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				99936772DA7A49C7B6DEDD1D /* libRNI18n.a in Frameworks */,
 				A86A0BA6CD0F4FC5A30AE7F6 /* libRNVectorIcons.a in Frameworks */,
+				8EF11323673E43ECBC4D0476 /* libCodePush.a in Frameworks */,
+				63E8FA21ED15463B8E8BDA9A /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,6 +538,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				672C083D93F146F7B24EE3A3 /* RNI18n.xcodeproj */,
 				20A6591425FA443188A985DB /* RNVectorIcons.xcodeproj */,
+				A36C52789F374BDE8EB8D15C /* CodePush.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -552,6 +560,7 @@
 				00E356EF1AD99517003FC87E /* ReactBloggerTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				433F4E59190D40C9A8CA9E10 /* Resources */,
+				14BDC7F4E7854417A8082D3F /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -566,6 +575,15 @@
 				2D02E4901E0B4A5D006451C7 /* ReactBlogger-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		14BDC7F4E7854417A8082D3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5E597C3B79BD40049675728D /* libz.tbd */,
+			);
+			name = Frameworks;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1094,6 +1112,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1114,6 +1133,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1179,6 +1199,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1208,6 +1229,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1240,6 +1262,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ReactBlogger-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1264,6 +1287,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);

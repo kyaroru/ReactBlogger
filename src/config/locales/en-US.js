@@ -1,6 +1,6 @@
 const en = {
   blogList: {
-    title: 'Blog List',
+    title: 'ReactBlogger',
     noBlog: 'You have no blog here.',
     addOneNow: 'Add one now :p',
     addNewBlog: 'Add new blog',

@@ -1,5 +1,5 @@
 #!/bin/sh
-cd ~/documents/React/ReactBlogger
+cd ~/documents/Personal/React/ReactBlogger
 echo "Pulling from ReactBlogger"
 git pull
 echo "Bundle ReactBlogger for Release"
