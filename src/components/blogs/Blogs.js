@@ -20,6 +20,7 @@ import { confirmation } from '../../utils/alert';
 import isEmpty from 'lodash/isEmpty';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getNavigationOptions, getTabBarOptions } from '../../themes/appStyles';
+import ToggleDeleteButton from './ToggleDeleteButton';
 
 type Props = {
   showPrompt: Function,
@@ -211,6 +212,13 @@ const mapDispatchToProps = {
 };
 
 const tabBar = getTabBarOptions('Blog List', 'list-ul');
-BlogList.navigationOptions = getNavigationOptions('Blog List', '#9007FF', 'white', tabBar);
+const navigationOptions = getNavigationOptions('Blog List', '#9007FF', 'white', tabBar);
+BlogList.navigationOptions = {
+  ...navigationOptions,
+  header: {
+    ...navigationOptions.header,
+    right: (<ToggleDeleteButton />),
+  },
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogList);
