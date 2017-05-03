@@ -10,9 +10,9 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import * as ducks from './ducks';
 import { connect } from 'react-redux';
+import { getNavigationOptions } from '../../themes/appStyles';
 
 type Props = {
   onDetailPress: Function,
@@ -23,7 +23,8 @@ type Props = {
   nextPageToken: string,
   fetchPost: Function,
   fetchOlderPost: Function,
-  blogId: string
+  blogId: string,
+  navigation: Object,
 };
 
 class PostList extends Component {
@@ -37,31 +38,26 @@ class PostList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchPost(this.props.blogId);
+    const { state } = this.props.navigation;
+    this.props.fetchPost(state.params.blogId);
   }
 
   onDetailPress(post) {
-    // console.log('View post: ' + post.id);
-    const data = {
-      selectedPost: post,
-    };
-    Actions.postDetail(data);
+    const { navigate } = this.props.navigation;
+    navigate('PostDetail', { selectedPost: post });
   }
 
   onCommentPress(post) {
     if (post.replies.totalItems !== '0') {
-      // console.log(post);
-      const data = {
-        postId: post.id,
-        blogId: post.blog.id,
-      };
-      Actions.viewComment(data);
+      const { navigate } = this.props.navigation;
+      navigate('Comments', { postId: post.id, blogId: post.blog.id });
     }
   }
 
   onLoadMore() {
+    const { state } = this.props.navigation;
     if (this.props.nextPageToken) {
-      this.props.fetchOlderPost(this.props.blogId, this.props.nextPageToken);
+      this.props.fetchOlderPost(state.params.blogId, this.props.nextPageToken);
     } else {
       this.setState({ labelLoadMore: 'This is the end :p' });
     }
@@ -126,7 +122,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
-    marginTop: 64,
   },
   content: {
     padding: 10,
@@ -159,5 +154,7 @@ const mapDispatchToProps = {
   fetchPost: ducks.fetchPost,
   fetchOlderPost: ducks.fetchOlderPost,
 };
+
+PostList.navigationOptions = getNavigationOptions('Posts', '#9007FF', 'white');
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList);

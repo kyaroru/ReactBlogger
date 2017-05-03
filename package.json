@@ -20,6 +20,7 @@
     "react-native-prompt": "^1.0.0",
     "react-native-router-flux": "3.37.0",
     "react-native-vector-icons": "^4.0.0",
+    "react-navigation": "^1.0.0-beta.7",
     "react-redux": "^4.4.5",
     "react-timer-mixin": "^0.13.3",
     "redux": "^3.5.2",

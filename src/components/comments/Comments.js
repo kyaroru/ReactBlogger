@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Comment from './Comment';
 import * as ducks from './ducks';
 import isEmpty from 'lodash/isEmpty';
+import { getNavigationOptions } from '../../themes/appStyles';
 
 import {
   View,
@@ -19,13 +20,15 @@ type Props = {
   fetchComment: Function,
   comments: Array<any>,
   isFetching: bool,
+  navigation: Object,
 };
 
 class CommentContainer extends Component {
   props: Props;
 
   componentDidMount() {
-    this.props.fetchComment(this.props.blogId, this.props.postId);
+    const { state } = this.props.navigation;
+    this.props.fetchComment(state.params.blogId, state.params.postId);
   }
 
   renderComments() {
@@ -76,7 +79,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
-    marginTop: 64,
   },
   content: {
     padding: 10,
@@ -106,5 +108,7 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = {
   fetchComment: ducks.fetchComment,
 };
+
+CommentContainer.navigationOptions = getNavigationOptions('Comments', '#9007FF', 'white');
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);

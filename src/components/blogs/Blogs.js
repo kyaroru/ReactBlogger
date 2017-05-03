@@ -5,7 +5,6 @@ import Prompt from 'react-native-prompt';
 import I18n from '../../config/i18n';
 import * as ducks from './ducks';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 import {
   View,
   StyleSheet,
@@ -20,6 +19,7 @@ import {
 import { confirmation } from '../../utils/alert';
 import isEmpty from 'lodash/isEmpty';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { getNavigationOptions, getTabBarOptions } from '../../themes/appStyles';
 
 type Props = {
   showPrompt: Function,
@@ -33,6 +33,7 @@ type Props = {
   isDeleteModeOn: bool,
   removeBlog: Function,
   initializeBlog: Function,
+  navigation: Object,
 };
 
 class BlogList extends Component {
@@ -96,7 +97,10 @@ class BlogList extends Component {
                   key={key}
                   {...blogs[key]}
                   isDeleteModeOn={isDeleteModeOn}
-                  onPress={() => Actions.postList({ blogId: blogs[key].id })}
+                  onPress={() => {
+                    const { navigate } = this.props.navigation;
+                    navigate('BlogPosts', { blogId: blogs[key].id });
+                  }}
                   onDeletePress={() => this.removeBlog(blogs[key])}
                 />
               )}
@@ -159,7 +163,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
-    marginTop: 64,
   },
   content: {
     padding: 10,
@@ -206,5 +209,8 @@ const mapDispatchToProps = {
   removeBlog: ducks.removeBlog,
   initializeBlog: ducks.initializeBlog,
 };
+
+const tabBar = getTabBarOptions('Blog List', 'list-ul');
+BlogList.navigationOptions = getNavigationOptions('Blog List', '#9007FF', 'white', tabBar);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogList);

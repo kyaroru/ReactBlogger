@@ -5,21 +5,22 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
+import { getNavigationOptions } from '../../themes/appStyles';
 
 type Props = {
-  selectedPost: Object
+  navigation: Object
 };
 
 export default class PostDetail extends Component {
   props: Props;
 
   render() {
-    const { selectedPost } = this.props;
+    const { state } = this.props.navigation;
     return (
       <View style={styles.container}>
         <View style={styles.content}>
           <View style={styles.wrapper}>
-            <Post {...selectedPost} withHTML />
+            <Post {...state.params.selectedPost} withHTML />
           </View>
         </View>
       </View>
@@ -27,13 +28,14 @@ export default class PostDetail extends Component {
   }
 }
 
+PostDetail.navigationOptions = getNavigationOptions('Post Detail', '#9007FF', 'white');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
-    marginTop: 64,
   },
   content: {
     padding: 10,
