@@ -46,9 +46,10 @@ class Post extends Component {
           <View style={styles.contentView}>
             <WebView
               ref={'webview'}
-              automaticallyAdjustContentInsets={false}
               style={styles.webView}
-              // scalesPageToFit={true}
+              javaScriptEnabled
+              domStorageEnabled
+              scalesPageToFit
               source={{ html: content }}
             />
           </View>
