@@ -25,34 +25,20 @@ platform :android do
     gradle(task: "test")
   end
 
-  lane :bump_version_code do
-    path = '../app/build.gradle'
-    re = /versionCode\s+(\d+)/
+  lane :bump_version do
+    version_code = get_version_code
+    version_name = get_version_name
+    new_version_code = prompt(text: "Current version code is #{version_code}, please enter new version code: ")
+    increment_version_code(
+      version_code: new_version_code
+    )
+    puts "Version code is now bump to " + new_version_code + " 🚀"
 
-    s = File.read(path)
-    versionCode = s[re, 1].to_i
-    puts "Current version code is " + versionCode.to_s
-    s[re, 1] = (versionCode + 1).to_s
-
-    f = File.new(path, 'w')
-    f.write(s)
-    f.close
-    puts "Version code is now bump to " + (versionCode + 1).to_s + " 🚀"
-  end
-
-  lane :input_version_name do
-    path = '../app/build.gradle'
-    re = /versionName\s+("\d\.\d\.\d")/
-
-    s = File.read(path)
-    currentVersion = s[re, 1].to_s
-    versionName = prompt(text: "Current version name is " + currentVersion + ". Enter new version name without quotes (eg. x.y.z): ")
-    s[re, 1] = '"' + versionName.to_s + '"'
-
-    f = File.new(path, 'w')
-    f.write(s)
-    f.close
-    puts "Version name is now updated to " + versionName + " 🚀"
+    new_version_name = prompt(text: "Current version name is #{version_name}, please enter new version name: ")
+    increment_version_name(
+      version_name: new_version_name
+    )
+    puts "Version name is now bump to " + new_version_name + " 🚀"
   end
 
   desc "Build a version"
@@ -68,8 +54,7 @@ platform :android do
 
   desc "Submit a new Alpha Build to Google Play Store"
   lane :alpha do
-    bump_version_code
-    input_version_name
+    bump_version
     gradle(
       task: 'assemble',
       build_type: 'Release'
@@ -82,8 +67,7 @@ platform :android do
 
   desc "Submit a new Beta Build to Google Play Store"
   lane :beta do
-    bump_version_code
-    input_version_name
+    bump_version
     gradle(
       task: 'assemble',
       build_type: 'Release'
@@ -100,8 +84,7 @@ platform :android do
       task: 'assemble',
       build_type: 'Release'
     )
-    bump_version_code
-    input_version_name
+    bump_version
     supply
     notification(subtitle: "Submitted Production build to Google Play Store", message: "Success 🎉")
   end

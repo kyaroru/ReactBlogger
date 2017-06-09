@@ -35,14 +35,9 @@ xcode-select --install
 fastlane android test
 ```
 Runs all the tests
-### android bump_version_code
+### android bump_version
 ```
-fastlane android bump_version_code
-```
-
-### android input_version_name
-```
-fastlane android input_version_name
+fastlane android bump_version
 ```
 
 ### android build
