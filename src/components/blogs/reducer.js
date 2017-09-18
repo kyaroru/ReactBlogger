@@ -1,7 +1,7 @@
-import * as ducks from './ducks';
 import { combineReducers } from 'redux';
+import * as ducks from './ducks';
 
-const blogArray:any = {
+const blogArray = {
   // 3318750962623420514: {
   //   id: '3318750962623420514',
   //   name: 'Carol の 点点滴滴',
@@ -46,7 +46,7 @@ const blogArray:any = {
 //   }
 // };
 
-const blogs = (blogList : any = blogArray, action : any) => {
+const blogs = (blogList = blogArray, action) => {
   switch (action.type) {
     case ducks.INITIALIZE_BLOG_SUCCESS:
       return action.blogList;

@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { getNavigationOptions, getTabBarOptions } from '../../themes/appStyles';
 
 class Settings extends React.Component {
   render() {
@@ -25,8 +24,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-const tabBar = getTabBarOptions('Settings', 'cog');
-Settings.navigationOptions = getNavigationOptions('Settings', '#9007FF', 'white', tabBar);
 
 export default Settings;

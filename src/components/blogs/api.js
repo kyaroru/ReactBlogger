@@ -2,7 +2,7 @@
 import axios from 'axios';
 import api from '../../config/bloggerAPI';
 
-export const fetchBlogInfo = (blogUrl: string) => {
+export const fetchBlogInfo = (blogUrl) => {
   const url = `${api.domain}byurl`;
   const params = {
     url: blogUrl,
@@ -10,5 +10,5 @@ export const fetchBlogInfo = (blogUrl: string) => {
     key: api.API_KEY,
   };
   return axios.get(url, { params })
-    .then((response) => response.data, (response) => response.data);
+    .then(response => response.data, error => error.response && error.response.data);
 };

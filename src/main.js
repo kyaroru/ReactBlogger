@@ -1,12 +1,16 @@
-import App from './app';
 import React from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
 import createStore from './createStore';
-import createReducers from './ducks';
+import App from './app';
 
 class Main extends React.Component {
+  componentWillMount() {
+    SplashScreen.hide();
+  }
+
   render() {
-    const store = createStore(createReducers());
+    const store = createStore();
 
     return (
       <Provider store={store}>

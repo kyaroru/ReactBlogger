@@ -1,6 +1,5 @@
 // @flow
-import { takeLatest } from 'redux-saga';
-import { call, put, fork } from 'redux-saga/effects';
+import { all, call, put, fork, takeLatest } from 'redux-saga/effects';
 import * as ducks from './ducks';
 import * as api from './api';
 
@@ -33,16 +32,16 @@ function* fetchOlderPost(postAction) {
 }
 
 function* watchFetchPost() {
-  yield* takeLatest(ducks.FETCH_POST_REQUEST, fetchPost);
+  yield takeLatest(ducks.FETCH_POST_REQUEST, fetchPost);
 }
 
 function* watchFetchOlderPost() {
-  yield* takeLatest(ducks.FETCH_OLDER_POST_REQUEST, fetchOlderPost);
+  yield takeLatest(ducks.FETCH_OLDER_POST_REQUEST, fetchOlderPost);
 }
 
-export default function* postSaga(): any {
-  yield [
+export default function* postSaga() {
+  yield all([
     fork(watchFetchPost),
     fork(watchFetchOlderPost),
-  ];
+  ]);
 }

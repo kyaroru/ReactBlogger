@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import Post from './Post';
 import isEmpty from 'lodash/isEmpty';
+import { connect } from 'react-redux';
+
 import {
   View,
   StyleSheet,
@@ -10,8 +11,8 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
+import Post from './Post';
 import * as ducks from './ducks';
-import { connect } from 'react-redux';
 import { getNavigationOptions } from '../../themes/appStyles';
 
 type Props = {
@@ -73,14 +74,16 @@ class PostList extends Component {
       );
     }
     return posts.map(post =>
-      <Post
-        key={post.id}
-        {...post}
-        withHTML={false}
-        numberOfLines={5}
-        onDetailPress={() => this.onDetailPress(post)}
-        onCommentPress={() => this.onCommentPress(post)}
-      />
+      (
+        <Post
+          key={post.id}
+          {...post}
+          withHTML={false}
+          numberOfLines={5}
+          onDetailPress={() => this.onDetailPress(post)}
+          onCommentPress={() => this.onCommentPress(post)}
+        />
+      ),
     );
   }
 
@@ -143,7 +146,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (store) => ({
+const mapStateToProps = store => ({
   posts: store[ducks.NAME].posts.items,
   isFetching: store[ducks.NAME].posts.isFetching,
   isFetchingOlderPost: store[ducks.NAME].posts.isFetchingOlderPost,

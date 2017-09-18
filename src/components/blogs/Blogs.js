@@ -1,9 +1,8 @@
 // @flow
 import React, { Component } from 'react';
-import Blog from './Blog';
 import Prompt from 'react-native-prompt';
-import I18n from '../../config/i18n';
-import * as ducks from './ducks';
+import isEmpty from 'lodash/isEmpty';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import {
   View,
@@ -16,10 +15,12 @@ import {
   AlertIOS,
   StatusBar,
 } from 'react-native';
+import Blog from './Blog';
+import I18n from '../../config/i18n';
+import * as ducks from './ducks';
 import { confirmation } from '../../utils/alert';
-import isEmpty from 'lodash/isEmpty';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { getNavigationOptions, getTabBarOptions } from '../../themes/appStyles';
+import { getNavigationOptionsWithAction } from '../../themes/appStyles';
+import * as Colors from '../../themes/colors';
 import ToggleDeleteButton from './ToggleDeleteButton';
 
 type Props = {
@@ -51,10 +52,10 @@ class BlogList extends Component {
         I18n.t('blogList.enterBlogURL'),
         I18n.t('blogList.enterBlogURLInfo'),
         [
-           { text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
-           { text: I18n.t('ok'), onPress: url => this.submitAddBlog(url) },
+          { text: I18n.t('cancel'), onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+          { text: I18n.t('ok'), onPress: url => this.submitAddBlog(url) },
         ],
-       );
+      );
     } else {
       showPrompt(I18n.t('blogList.enterBlogURL'), 'angularjs.blogspot.com');
     }
@@ -94,7 +95,7 @@ class BlogList extends Component {
           <View style={styles.wrapper}>
             <View>
               {Object.keys(blogs).map(key =>
-                <Blog
+                (<Blog
                   key={key}
                   {...blogs[key]}
                   isDeleteModeOn={isDeleteModeOn}
@@ -103,7 +104,7 @@ class BlogList extends Component {
                     navigate('BlogPosts', { blogId: blogs[key].id });
                   }}
                   onDeletePress={() => this.removeBlog(blogs[key])}
-                />
+                />),
               )}
             </View>
             <TouchableOpacity onPress={() => this.addNewBlog()} style={styles.itemNew}>
@@ -151,7 +152,7 @@ class BlogList extends Component {
           defaultValue=""
           visible={isShowPrompt}
           onCancel={() => hidePrompt()}
-          onSubmit={(url) => this.submitAddBlog(url)}
+          onSubmit={url => this.submitAddBlog(url)}
         />
       </View>
     );
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (store) => ({
+const mapStateToProps = store => ({
   blogs: store[ducks.NAME].blogs,
   isFetching: store[ducks.NAME].blogInfo.isFetching,
   isShowPrompt: store[ducks.NAME].prompt.isShowPrompt,
@@ -211,14 +212,6 @@ const mapDispatchToProps = {
   initializeBlog: ducks.initializeBlog,
 };
 
-const tabBar = getTabBarOptions('Blog List', 'list-ul');
-const navigationOptions = getNavigationOptions('Blog List', '#9007FF', 'white', tabBar);
-BlogList.navigationOptions = {
-  ...navigationOptions,
-  header: {
-    ...navigationOptions.header,
-    right: (<ToggleDeleteButton />),
-  },
-};
+BlogList.navigationOptions = getNavigationOptionsWithAction('Blog List', Colors.primary, Colors.white, null, <ToggleDeleteButton />);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BlogList);

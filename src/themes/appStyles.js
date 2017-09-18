@@ -1,42 +1,45 @@
-import { TabView } from 'react-navigation';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export const getNavigationOptions = (title, backgroundColor, color, tabBar) => ({
+export const getNavigationOptions = (title, backgroundColor, color) => ({
   title,
-  header: {
-    titleStyle: {
-      // this only styles the title/text (font, color etc.)
-      color,
-    },
-    style: {
-      // this will style the header, but does NOT change the text
-      backgroundColor,
-    },
-    // this will color your back and forward arrows or left and right icons
-    tintColor: color,
+  headerTitle: title,
+  headerBackTitle: null,
+  headerStyle: {
+    backgroundColor,
+    borderBottomWidth: 0,
   },
-  tabBar,
+  headerTitleStyle: {
+    color,
+  },
+  headerTintColor: color,
 });
 
-export const getTabBarOptions = (label, icon) => ({
-  label,
-  icon: ({ tintColor, focused }) => (
-    <Icon name={icon} size={25} color={tintColor} />
-  ),
+export const getNavigationOptionsWithAction = (title, backgroundColor, color, headerLeft, headerRight) => ({
+  title,
+  headerStyle: {
+    backgroundColor,
+  },
+  headerTitleStyle: {
+    color,
+  },
+  headerTintColor: color,
+  headerLeft,
+  headerRight,
 });
 
-export const getTabNavigatorConfig = () => ({
-  tabBarComponent: TabView.TabBarBottom,
-  tabBarPosition: 'bottom',
-  tabBarOptions: {
-    showIcon: true,
-    activeTintColor: '#555',
-    labelStyle: {
-      fontSize: 12,
-    },
-    style: {
-      backgroundColor: '#fff',
-    },
+export const getTabNavigationOptions = (tabBarLabel, iconName, color, backgroundColor) => ({
+  title: tabBarLabel,
+  headerTitle: tabBarLabel,
+  headerBackTitle: null,
+  headerStyle: {
+    backgroundColor,
+    borderBottomWidth: 0,
   },
+  headerTitleStyle: {
+    color,
+  },
+  headerTintColor: color,
+  tabBarLabel,
+  tabBarIcon: ({ tintColor }) => <Icon name={iconName} size={20} color={tintColor} />,
 });

@@ -16,7 +16,7 @@ export const FETCH_BLOG_INFO_REQUEST = 'FETCH_BLOG_INFO_REQUEST';
 export const FETCH_BLOG_INFO_SUCCESS = 'FETCH_BLOG_INFO_SUCCESS';
 export const FETCH_BLOG_INFO_FAIL = 'FETCH_BLOG_INFO_FAIL';
 
-export const getBlogList = (state) => state[NAME].blogs;
+export const getBlogList = state => state[NAME].blogs;
 
 export const getBlogById = (state, id) => {
   const blogs = state[NAME].blogs;
@@ -24,12 +24,12 @@ export const getBlogById = (state, id) => {
   return selectedBlog || {};
 };
 
-export const addBlog = (blog: Object) => ({
+export const addBlog = blog => ({
   type: ADD_BLOG,
   blog,
 });
 
-export const removeBlog = (id:string) => ({
+export const removeBlog = id => ({
   type: REMOVE_BLOG,
   id,
 });
@@ -38,7 +38,7 @@ export const initializeBlog = () => ({
   type: INITIALIZE_BLOG,
 });
 
-export const initializeBlogSuccess = (blogList) => ({
+export const initializeBlogSuccess = blogList => ({
   type: INITIALIZE_BLOG_SUCCESS,
   blogList,
 });
@@ -47,7 +47,7 @@ export const toggleDeleteMode = () => ({
   type: TOGGLE_DELETE_MODE,
 });
 
-export const showPrompt = (title: string, placeholder: string) => ({
+export const showPrompt = (title, placeholder) => ({
   type: SHOW_PROMPT,
   title,
   placeholder,
@@ -57,17 +57,17 @@ export const hidePrompt = () => ({
   type: HIDE_PROMPT,
 });
 
-export const fetchBlogInfo = (url: string) => ({
+export const fetchBlogInfo = url => ({
   type: FETCH_BLOG_INFO_REQUEST,
   url,
 });
 
-export const fetchBlogInfoSuccess = (blog: any) => ({
+export const fetchBlogInfoSuccess = blog => ({
   type: FETCH_BLOG_INFO_SUCCESS,
   blog,
 });
 
-export const fetchBlogInfoFail = (message: string) => ({
+export const fetchBlogInfoFail = message => ({
   type: FETCH_BLOG_INFO_FAIL,
   message,
 });

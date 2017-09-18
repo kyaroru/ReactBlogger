@@ -5,62 +5,62 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="00: Verifying required fastlane version" time="0.001343">
+      <testcase classname="fastlane.lanes" name="00: Verifying required fastlane version" time="0.00143">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="01: default_platform" time="0.00099">
+      <testcase classname="fastlane.lanes" name="01: default_platform" time="0.001108">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="02: Switch to android bump_version lane" time="0.001585">
+      <testcase classname="fastlane.lanes" name="02: Switch to android bump_version lane" time="0.001013">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="03: get_version_code" time="0.018663">
+      <testcase classname="fastlane.lanes" name="03: get_version_code" time="0.019874">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="04: get_version_name" time="0.015787">
+      <testcase classname="fastlane.lanes" name="04: get_version_name" time="0.018493">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="05: prompt" time="2.304265">
+      <testcase classname="fastlane.lanes" name="05: prompt" time="1.882985">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="06: increment_version_code" time="0.036831">
+      <testcase classname="fastlane.lanes" name="06: increment_version_code" time="0.045818">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="07: prompt" time="2.04769">
+      <testcase classname="fastlane.lanes" name="07: prompt" time="2.196607">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="08: increment_version_name" time="0.019542">
+      <testcase classname="fastlane.lanes" name="08: increment_version_name" time="0.019367">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="09: gradle" time="102.612433">
+      <testcase classname="fastlane.lanes" name="09: gradle" time="64.09039">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="10: supply" time="19.582384">
+      <testcase classname="fastlane.lanes" name="10: supply" time="23.412639">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="11: notification" time="0.451727">
+      <testcase classname="fastlane.lanes" name="11: notification" time="0.246041">
         
       </testcase>
     

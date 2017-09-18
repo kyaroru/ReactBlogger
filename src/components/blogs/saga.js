@@ -1,10 +1,9 @@
 // @flow
-import { takeLatest } from 'redux-saga';
-import { call, put, fork, select } from 'redux-saga/effects';
-import * as ducks from './ducks';
-import * as api from './api';
+import { all, call, put, fork, select, takeLatest } from 'redux-saga/effects';
 import isEmpty from 'lodash/isEmpty';
 import { AsyncStorage } from 'react-native';
+import * as ducks from './ducks';
+import * as api from './api';
 import { alert } from '../../utils/alert';
 
 function* initializeBlog() {
@@ -20,7 +19,7 @@ function* initializeBlog() {
 }
 
 function* watchInitializeBlog() {
-  yield* takeLatest(ducks.INITIALIZE_BLOG, initializeBlog);
+  yield takeLatest(ducks.INITIALIZE_BLOG, initializeBlog);
 }
 
 function* checkIsBlogExist(blog) {
@@ -56,7 +55,7 @@ function* fetchBlogInfo(blogAction) {
 }
 
 function* watchFetchBlogInfo() {
-  yield* takeLatest(ducks.FETCH_BLOG_INFO_REQUEST, fetchBlogInfo);
+  yield takeLatest(ducks.FETCH_BLOG_INFO_REQUEST, fetchBlogInfo);
 }
 
 function* updateBlogList() {
@@ -71,18 +70,18 @@ function* updateBlogList() {
 }
 
 function* watchAddBlog() {
-  yield* takeLatest(ducks.ADD_BLOG, updateBlogList);
+  yield takeLatest(ducks.ADD_BLOG, updateBlogList);
 }
 
 function* watchRemoveBlog() {
-  yield* takeLatest(ducks.REMOVE_BLOG, updateBlogList);
+  yield takeLatest(ducks.REMOVE_BLOG, updateBlogList);
 }
 
-export default function* blogSaga(): any {
-  yield [
+export default function* blogSaga() {
+  yield all([
     fork(watchInitializeBlog),
     fork(watchFetchBlogInfo),
     fork(watchAddBlog),
     fork(watchRemoveBlog),
-  ];
+  ]);
 }

@@ -1,6 +1,5 @@
 // @flow
-import { takeLatest } from 'redux-saga';
-import { call, put, fork } from 'redux-saga/effects';
+import { all, call, put, fork, takeLatest } from 'redux-saga/effects';
 import * as ducks from './ducks';
 import * as api from './api';
 
@@ -18,11 +17,11 @@ function* fetchComment(commentAction) {
 }
 
 function* watchFetchComment() {
-  yield* takeLatest(ducks.FETCH_COMMENT_REQUEST, fetchComment);
+  yield takeLatest(ducks.FETCH_COMMENT_REQUEST, fetchComment);
 }
 
-export default function* postSaga(): any {
-  yield [
+export default function* postSaga() {
+  yield all([
     fork(watchFetchComment),
-  ];
+  ]);
 }

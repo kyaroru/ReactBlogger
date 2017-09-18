@@ -1,11 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Comment from './Comment';
-import * as ducks from './ducks';
 import isEmpty from 'lodash/isEmpty';
-import { getNavigationOptions } from '../../themes/appStyles';
-
 import {
   View,
   StyleSheet,
@@ -13,6 +9,9 @@ import {
   ActivityIndicator,
   Text,
 } from 'react-native';
+import Comment from './Comment';
+import * as ducks from './ducks';
+import { getNavigationOptions } from '../../themes/appStyles';
 
 type Props = {
   blogId: string,
@@ -41,10 +40,12 @@ class CommentContainer extends Component {
       );
     }
     return comments.map(comment =>
-      <Comment
-        key={comment.id}
-        {...comment}
-      />
+      (
+        <Comment
+          key={comment.id}
+          {...comment}
+        />
+      ),
     );
   }
 
@@ -70,7 +71,6 @@ class CommentContainer extends Component {
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({

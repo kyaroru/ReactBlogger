@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import I18n from '../../config/i18n';
 import {
   View,
   StyleSheet,
@@ -9,7 +8,7 @@ import {
   TouchableOpacity,
   WebView,
 } from 'react-native';
-// import HTMLView from 'react-native-htmlview';
+import I18n from '../../config/i18n';
 
 type Props = {
   onDetailPress: Function,
@@ -45,7 +44,6 @@ class Post extends Component {
         {withHTML && <View style={styles.contentViewWrapperWithHTML}>
           <View style={styles.contentView}>
             <WebView
-              ref={'webview'}
               style={styles.webView}
               javaScriptEnabled
               domStorageEnabled

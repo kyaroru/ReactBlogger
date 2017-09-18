@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react';
-import Post from './Post';
 import {
   View,
   StyleSheet,
 } from 'react-native';
+import Post from './Post';
 import { getNavigationOptions } from '../../themes/appStyles';
 
 type Props = {

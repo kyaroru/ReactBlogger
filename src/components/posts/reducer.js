@@ -1,5 +1,5 @@
-import * as ducks from './ducks';
 import { combineReducers } from 'redux';
+import * as ducks from './ducks';
 
 const posts = (state = { isFetching: false }, action) => {
   switch (action.type) {

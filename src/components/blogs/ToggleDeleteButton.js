@@ -1,8 +1,8 @@
+import { TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as ducks from './ducks';
-import { TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 type Props = {
   toggleDeleteMode: Function,

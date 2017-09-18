@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react';
-import I18n from '../../config/i18n';
 import {
   View,
   StyleSheet,
   Text,
   Image,
 } from 'react-native';
+import I18n from '../../config/i18n';
 
 type Props = {
   onPress: any,
