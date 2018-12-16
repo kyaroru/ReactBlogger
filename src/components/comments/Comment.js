@@ -6,7 +6,8 @@ import {
   Text,
   Image,
 } from 'react-native';
-import I18n from '../../config/i18n';
+import I18n from 'config/i18n';
+import * as Colors from 'themes/colors';
 
 type Props = {
   onPress: any,
@@ -32,7 +33,7 @@ export default class Comment extends Component {
     return (
       <View>
         <View style={{ flexDirection: 'row', paddingBottom: 10 }}>
-          <Image style={{ width: 35, height: 35, marginRight: 10 }} resizeMode={Image.resizeMode.contain} source={{ uri: `https:${author.image.url}` }} />
+          <Image style={{ width: 35, height: 35, marginRight: 10, resizeMode: 'contain' }} source={{ uri: `https:${author.image.url}` }} />
           <View style={styles.contentViewWrapper}>
             <View style={styles.titleView}>
               <Text style={styles.title}>{author.displayName}</Text>
@@ -40,7 +41,7 @@ export default class Comment extends Component {
             </View>
           </View>
         </View>
-        <View style={[styles.contentViewWrapper, { paddingBottom: 10, borderColor: '#eee', borderBottomWidth: 1, marginBottom: 10 }]}>
+        <View style={[styles.contentViewWrapper, { paddingBottom: 10, borderColor: Colors.nearWhite, borderBottomWidth: 1, marginBottom: 10 }]}>
           <View style={styles.contentView}>
             <Text>{contentWithoutHTML}</Text>
           </View>
@@ -68,11 +69,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#512DA8',
+    color: Colors.accent,
   },
   subTitle: {
     fontSize: 13,
-    color: '#555',
+    color: Colors.darkGray,
   },
   content: {
     fontSize: 12,
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionButtonText: {
-    color: '#727272',
+    color: Colors.grayish,
   },
   div: {
     margin: 0,

@@ -16,11 +16,11 @@ import {
   StatusBar,
 } from 'react-native';
 import Blog from './Blog';
-import I18n from '../../config/i18n';
+import I18n from 'config/i18n';
 import * as ducks from './ducks';
-import { confirmation } from '../../utils/alert';
+import { confirmation } from 'utils/alert';
 import { getNavigationOptionsWithAction } from '../../themes/appStyles';
-import * as Colors from '../../themes/colors';
+import * as Colors from 'themes/colors';
 import ToggleDeleteButton from './ToggleDeleteButton';
 
 type Props = {
@@ -109,7 +109,7 @@ class BlogList extends Component {
             </View>
             <TouchableOpacity onPress={() => this.addNewBlog()} style={styles.itemNew}>
               <View>
-                <Text style={{ color: '#8C07EB' }}>{I18n.t('blogList.addNewBlog')}</Text>
+                <Text style={{ color: Colors.lighterPurple }}>{I18n.t('blogList.addNewBlog')}</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -124,7 +124,7 @@ class BlogList extends Component {
         <View style={{ marginBottom: 20 }}><Icon name="rss" size={100} color="#aaa" style={styles.iconAdd} /></View>
         <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }} onPress={() => this.addNewBlog()} >
           <Text>{I18n.t('blogList.noBlog')}</Text>
-          <Text style={{ color: '#8C07EB' }}>{I18n.t('blogList.addOneNow')}</Text>
+          <Text style={{ color: Colors.lighterPurple }}>{I18n.t('blogList.addOneNow')}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -136,7 +136,7 @@ class BlogList extends Component {
     return (
       <View style={styles.container}>
         <StatusBar
-          backgroundColor={'#9007FF'}
+          backgroundColor={Colors.primary}
           barStyle="light-content"
         />
         <ActivityIndicator
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     justifyContent: 'flex-start',
   },
   content: {
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     padding: 10,
     borderBottomWidth: 1,
-    borderColor: '#eee',
+    borderColor: Colors.nearWhite,
   },
 });
 

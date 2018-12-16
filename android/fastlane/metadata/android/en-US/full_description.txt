@@ -1,11 +1,11 @@
-A simple blog reading app built using pure ReactNative (v0.40.0) + Redux Saga
+A simple blog reading app built using pure ReactNative (v0.57.8) + Redux Saga
 
 Features:
 - Add new blog to your list (blogspot/blogger url only)
 - View posts
 - View comments
 
-Upcoming features: (Perhaps) 
+Upcoming features: (Perhaps)
 - Able to sync? hmmm...
 
 Git Repo: https://github.com/kyaroru/ReactBlogger

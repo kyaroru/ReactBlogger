@@ -9,7 +9,12 @@ let middleware;
 
 /* global __DEV__ */
 if (__DEV__) {
-  middleware = applyMiddleware(sagaMiddleware, createLogger());
+  const excludedActions = [];
+  const logger = createLogger({
+    collapsed: true,
+    predicate: (getState, action) => excludedActions.indexOf(action.type) < 0,
+  });
+  middleware = applyMiddleware(sagaMiddleware, logger);
 } else {
   middleware = applyMiddleware(sagaMiddleware);
 }

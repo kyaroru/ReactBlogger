@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import api from '../../config/bloggerAPI';
+import api from 'config/bloggerAPI';
 
 export const fetchPost = (id) => {
   const url = `${api.domain}${id}/posts`;

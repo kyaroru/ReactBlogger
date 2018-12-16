@@ -4,7 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import { AsyncStorage } from 'react-native';
 import * as ducks from './ducks';
 import * as api from './api';
-import { alert } from '../../utils/alert';
+import { alert } from 'utils/alert';
 
 function* initializeBlog() {
   try {

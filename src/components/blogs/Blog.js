@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import * as Colors from 'themes/colors';
 
 type props = {
   onPress: any,
@@ -23,8 +24,8 @@ export default ({ onPress, url, name, isDeleteModeOn, onDeletePress }: props) =>
       <Text style={styles.url}>{url}</Text>
     </View>
     <View style={{ padding: 10, paddingRight: 0 }}>
-      {isDeleteModeOn && <Icon name="trash" size={20} color="#aaa" style={styles.iconAdd} />}
-      {!isDeleteModeOn && <Icon name="chevron-right" size={20} color="#aaa" style={styles.iconAdd} />}
+      {isDeleteModeOn && <Icon name="trash" size={20} color={Colors.gray} style={styles.iconAdd} />}
+      {!isDeleteModeOn && <Icon name="chevron-right" size={20} color={Colors.gray} style={styles.iconAdd} />}
     </View>
   </TouchableOpacity>
 );
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderBottomWidth: 1,
-    borderColor: '#eee',
+    borderColor: Colors.nearWhite,
   },
   name: {
     fontSize: 16,

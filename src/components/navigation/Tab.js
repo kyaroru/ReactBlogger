@@ -1,8 +1,8 @@
 import { TabNavigator as tabNavigator } from 'react-navigation';
 import Blogs from '../blogs/Blogs';
 import Settings from '../settings';
-import * as Colors from '../../themes/colors';
-import { getTabNavigationOptions } from '../../themes/appStyles';
+import * as Colors from 'themes/colors';
+import { getTabNavigationOptions } from 'themes/appStyles';
 
 const blogOptions = getTabNavigationOptions('Blog List', 'list-ul', Colors.white, Colors.primary);
 const settingOptions = getTabNavigationOptions('Settings', 'cog', Colors.white, Colors.primary);

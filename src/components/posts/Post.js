@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   WebView,
 } from 'react-native';
-import I18n from '../../config/i18n';
+import I18n from 'config/i18n';
+import * as Colors from 'themes/colors';
 
 type Props = {
   onDetailPress: Function,
@@ -30,44 +31,46 @@ class Post extends Component {
     return newContentWOSpace;
   }
 
+  renderTitle = () => {
+    const { published, title } = this.props;
+    return (
+      <View style={styles.titleView}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.subTitle}>{I18n.strftime(new Date(published), '%d %b %Y %I:%M %p')}</Text>
+      </View>
+    )
+  }
+
   render() {
     const { withHTML, onDetailPress, onCommentPress, content, title, published, numberOfLines, replies } = this.props;
     const contentWithoutHTML = this.formatContent(content);
     return (
       <View style={withHTML ? styles.itemWithHtml : styles.item}>
-        <TouchableOpacity onPress={onDetailPress} style={styles.contentViewWrapper}>
-          <View style={styles.titleView}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subTitle}>{I18n.strftime(new Date(published), '%d %b %Y %I:%M %p')}</Text>
-          </View>
-        </TouchableOpacity>
-        {withHTML && <View style={styles.contentViewWrapperWithHTML}>
-          <View style={styles.contentView}>
+        {!withHTML && <View style={styles.titleTop}>{this.renderTitle()}</View>}
+        <View style={[styles.contentContainer, withHTML && { marginTop: 70, borderWith: 1 }]}>
+          {withHTML && <View style={styles.contentViewWrapperWithHTML}>
             <WebView
               style={styles.webView}
               javaScriptEnabled
-              domStorageEnabled
               scalesPageToFit
               source={{ html: content }}
             />
-          </View>
-        </View>}
-        {!withHTML && <TouchableOpacity style={styles.contentViewWrapper} onPress={onDetailPress}>
-          <View style={styles.contentView}>
+          </View>}
+          {!withHTML && <TouchableOpacity style={styles.listContent} onPress={onDetailPress}>
             <Text numberOfLines={numberOfLines}>{contentWithoutHTML}</Text>
-          </View>
-        </TouchableOpacity>}
-        {onDetailPress !== undefined && onCommentPress !== undefined && <View style={styles.optionButtonWrapper}>
-          <TouchableOpacity onPress={onDetailPress} style={styles.optionButton}>
-            <Icon name="search" size={20} color="#9007FF" />
-            <Text style={styles.optionButtonText}>{I18n.t('postList.readMore')}</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={onCommentPress} style={styles.optionButton}>
-            <Icon name="comment" size={20} color="#9007FF" />
-            <Text style={styles.optionButtonText}>{replies.totalItems} {I18n.t('postList.comments')}</Text>
-          </TouchableOpacity>
-        </View>}
+          </TouchableOpacity>}
+          {onDetailPress !== undefined && onCommentPress !== undefined && <View style={styles.optionButtonWrapper}>
+            <TouchableOpacity onPress={onDetailPress} style={styles.optionButton}>
+              <Icon name="search" size={20} color={Colors.primary} />
+              <Text style={styles.optionButtonText}>{I18n.t('postList.readMore')}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onCommentPress} style={styles.optionButton}>
+              <Icon name="comment" size={20} color={Colors.primary} />
+              <Text style={styles.optionButtonText}>{replies.totalItems} {I18n.t('postList.comments')}</Text>
+            </TouchableOpacity>
+          </View>}
+        </View>
+        {withHTML && <View style={styles.titleBottom}>{this.renderTitle()}</View>}
       </View>
     );
   }
@@ -79,21 +82,38 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     borderBottomWidth: 1,
-    borderColor: '#eee',
+    borderColor: Colors.nearWhite,
   },
   itemWithHtml: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
     flex: 1,
-    borderColor: '#eee',
   },
-  contentViewWrapper: {
+  contentContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    flex: 1,
+  },
+  titleTop: {
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  titleBottom: {
+    borderBottomColor: Colors.nearWhite,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    marginTop: 10,
+    position: 'absolute',
+  },
+  listContent: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
   },
   contentViewWrapperWithHTML: {
-    flexDirection: 'row',
     flex: 1,
   },
   titleView: {
@@ -108,11 +128,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#512DA8',
+    color: Colors.accent,
   },
   subTitle: {
     fontSize: 13,
-    color: '#555',
+    color: Colors.darkGray,
   },
   content: {
     fontSize: 12,
@@ -130,20 +150,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionButtonText: {
-    color: '#727272',
-  },
-  div: {
-    margin: 0,
-    padding: 0,
-  },
-  p: {
-    margin: 0,
-    padding: 0,
+    color: Colors.grayish,
   },
   webView: {
     flex: 1,
-    // borderColor: '#eee',
-    // borderWidth: 1,
   },
 });
 

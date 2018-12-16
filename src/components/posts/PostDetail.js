@@ -5,7 +5,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import Post from './Post';
-import { getNavigationOptions } from '../../themes/appStyles';
+import { getNavigationOptions } from 'themes/appStyles';
+import * as Colors from 'themes/colors';
 
 type Props = {
   navigation: Object
@@ -28,17 +29,17 @@ export default class PostDetail extends Component {
   }
 }
 
-PostDetail.navigationOptions = getNavigationOptions('Post Detail', '#9007FF', 'white');
+PostDetail.navigationOptions = getNavigationOptions('Post Detail', Colors.primary, 'white');
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     justifyContent: 'flex-start',
   },
   content: {
-    padding: 10,
+    paddingHorizontal: 10,
     flexDirection: 'row',
     flex: 1,
     alignItems: 'flex-start',

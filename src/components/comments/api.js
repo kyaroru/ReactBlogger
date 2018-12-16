@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import api from '../../config/bloggerAPI';
+import api from 'config/bloggerAPI';
 
 export const fetchComment = (blogId, postId) => {
   const url = `${api.domain}${blogId}/posts/${postId}/comments`;

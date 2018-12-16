@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
+import { FlatList } from 'react-native';
 import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
+import * as Colors from 'themes/colors';
 
 import {
   View,
@@ -13,7 +15,7 @@ import {
 } from 'react-native';
 import Post from './Post';
 import * as ducks from './ducks';
-import { getNavigationOptions } from '../../themes/appStyles';
+import { getNavigationOptions } from 'themes/appStyles';
 
 type Props = {
   onDetailPress: Function,
@@ -64,6 +66,20 @@ class PostList extends Component {
     }
   }
 
+  keyExtractor = data => data.id;
+
+  renderItem = ({ item: post }) => {
+    return (
+      <Post
+        withHTML={false}
+        numberOfLines={5}
+        onDetailPress={() => this.onDetailPress(post)}
+        onCommentPress={() => this.onCommentPress(post)}
+        {...post}
+      />
+    )
+  }
+
   renderPosts() {
     const { posts } = this.props;
     if (isEmpty(posts)) {
@@ -73,18 +89,15 @@ class PostList extends Component {
         </View>
       );
     }
-    return posts.map(post =>
-      (
-        <Post
-          key={post.id}
-          {...post}
-          withHTML={false}
-          numberOfLines={5}
-          onDetailPress={() => this.onDetailPress(post)}
-          onCommentPress={() => this.onCommentPress(post)}
-        />
-      ),
-    );
+    return (
+      <FlatList
+        data={posts}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={this.keyExtractor}
+        renderItem={this.renderItem}
+        extraData={this.props.posts}
+      />
+    )
   }
 
   render() {
@@ -100,17 +113,15 @@ class PostList extends Component {
         <ScrollView>
           <View style={styles.content}>
             <View style={styles.wrapper}>
-              <View>
-                {!isFetching && this.renderPosts()}
-                {!isFetching && <TouchableOpacity onPress={() => this.onLoadMore()} style={{ flexDirection: 'row', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
-                  <Text style={{ paddingRight: 5 }}>{this.state.labelLoadMore}</Text>
-                  {isFetchingOlderPost && <ActivityIndicator
-                    style={{ padding: 0, margin: 0 }}
-                    color="black"
-                    animating={isFetchingOlderPost}
-                  />}
-                </TouchableOpacity>}
-              </View>
+              {!isFetching && this.renderPosts()}
+              {!isFetching && <TouchableOpacity onPress={() => this.onLoadMore()} style={{ flexDirection: 'row', padding: 10, alignItems: 'center', justifyContent: 'center' }}>
+                <Text style={{ paddingRight: 5 }}>{this.state.labelLoadMore}</Text>
+                {isFetchingOlderPost && <ActivityIndicator
+                  style={{ padding: 0, margin: 0 }}
+                  color="black"
+                  animating={isFetchingOlderPost}
+                />}
+              </TouchableOpacity>}
             </View>
           </View>
         </ScrollView>
@@ -123,7 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     justifyContent: 'flex-start',
   },
   content: {
@@ -158,6 +169,6 @@ const mapDispatchToProps = {
   fetchOlderPost: ducks.fetchOlderPost,
 };
 
-PostList.navigationOptions = getNavigationOptions('Posts', '#9007FF', 'white');
+PostList.navigationOptions = getNavigationOptions('Posts', Colors.primary, 'white');
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostList);

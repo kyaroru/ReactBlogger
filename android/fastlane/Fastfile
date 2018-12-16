@@ -1,48 +1,58 @@
-# Customise this file, documentation can be found here:
-# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
-# All available actions: https://docs.fastlane.tools/actions
-# can also be listed using the `fastlane actions` command
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
 
-# Change the syntax highlighting to Ruby
-# All lines starting with a # are ignored when running `fastlane`
-
-# If you want to automatically update fastlane if a new version is available:
+# Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
-# This is the minimum version number required.
-# Update this, if you use features of a newer version
-fastlane_version "2.7.0"
-
-default_platform :android
+default_platform(:android)
 
 platform :android do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-  end
-
   desc "Runs all the tests"
   lane :test do
     gradle(task: "test")
   end
 
-  lane :bump_version do
-    version_code = get_version_code
-    version_name = get_version_name
-    new_version_code = prompt(text: "Current version code is #{version_code}, please enter new version code: ")
-    increment_version_code(
-      version_code: new_version_code
-    )
-    puts "Version code is now bump to " + new_version_code + " 🚀"
 
-    new_version_name = prompt(text: "Current version name is #{version_name}, please enter new version name: ")
-    increment_version_name(
-      version_name: new_version_name
-    )
-    puts "Version name is now bump to " + new_version_name + " 🚀"
+  lane :bump_version_code do
+    path = '../app/build.gradle'
+    re = /versionCode\s+(\d+)/
+
+    s = File.read(path)
+    currentVersionCode = s[re, 1].to_i
+    puts "Current version code is " + currentVersionCode.to_s
+    versionCode = prompt(text: "Current version code is " + currentVersionCode.to_s + ". Enter new version code: ")
+
+    s[re, 1] = versionCode.to_s
+
+    f = File.new(path, 'w')
+    f.write(s)
+    f.close
+    puts "Version code is now bump to " + versionCode.to_s + " ðŸš€"
+  end
+
+  lane :bump_version_name do
+    path = '../app/build.gradle'
+    re = /versionName\s+("\d\.\d\.\d")/
+
+    s = File.read(path)
+    currentVersionName = s[re, 1].to_s
+    versionName = prompt(text: "Current version name is " + currentVersionName + ". Enter new version name without quotes (eg. x.y.z): ")
+    s[re, 1] = '"' + versionName.to_s + '"'
+
+    f = File.new(path, 'w')
+    f.write(s)
+    f.close
+    puts "Version name is now updated to " + versionName
   end
 
   desc "Build a version"
   lane :build do
+    gradle(task: 'clean')
     gradle(
       task: 'assemble',
       build_type: 'Release'
@@ -54,7 +64,9 @@ platform :android do
 
   desc "Submit a new Alpha Build to Google Play Store"
   lane :alpha do
-    bump_version
+    bump_version_code
+    bump_version_name
+    gradle(task: 'clean')
     gradle(
       task: 'assemble',
       build_type: 'Release'
@@ -67,7 +79,9 @@ platform :android do
 
   desc "Submit a new Beta Build to Google Play Store"
   lane :beta do
-    bump_version
+    bump_version_code
+    bump_version_name
+    gradle(task: 'clean')
     gradle(
       task: 'assemble',
       build_type: 'Release'
@@ -80,36 +94,15 @@ platform :android do
 
   desc "Deploy a new version to the Google Play"
   lane :deploy do
+    bump_version_code
+    bump_version_name
+    gradle(task: 'clean')
     gradle(
       task: 'assemble',
       build_type: 'Release'
     )
-    bump_version
     supply
     notification(subtitle: "Submitted Production build to Google Play Store", message: "Success 🎉")
   end
 
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
 end
-
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://docs.fastlane.tools/actions
-
-# fastlane reports which actions are used
-# No personal data is sent or shared. Learn more at https://github.com/fastlane/enhancer

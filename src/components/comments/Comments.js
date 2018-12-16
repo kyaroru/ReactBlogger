@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 import Comment from './Comment';
 import * as ducks from './ducks';
-import { getNavigationOptions } from '../../themes/appStyles';
+import { getNavigationOptions } from 'themes/appStyles';
+import * as Colors from 'themes/colors';
 
 type Props = {
   blogId: string,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#fff',
+    backgroundColor: Colors.white,
     justifyContent: 'flex-start',
   },
   content: {
@@ -109,6 +110,6 @@ const mapDispatchToProps = {
   fetchComment: ducks.fetchComment,
 };
 
-CommentContainer.navigationOptions = getNavigationOptions('Comments', '#9007FF', 'white');
+CommentContainer.navigationOptions = getNavigationOptions('Comments', Colors.primary, 'white');
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentContainer);
